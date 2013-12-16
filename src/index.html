@@ -1,7 +1,88 @@
 <!DOCTYPE html>
-<html>
+<!--<html>
 	<head>
 		<script type="text/javascript"> window.location.href="index.php"; </script>
 		<meta http-equiv="refresh" content="0; URL=index.php">
 	</head>
+</html>-->
+
+<html>
+	<head>
+		<script type="text/javascript">
+			var base_url = "http://localhost:8000/index.php";
+			function callServer(url)
+			{
+				console.log(url);
+				var response;
+				var client;
+				try
+				{
+					client = new XMLHttpRequest();
+				}
+				catch (e)
+				{
+					try
+					{
+						client = new ActiveXObject("Msxml2.XMLHTTP");
+					}
+					catch (e)
+					{
+						try
+						{
+							client = new ActiveXObject("Microsoft.XMLHTTP");
+						}
+						catch (e)
+						{
+							return;
+						}
+					}
+				}
+				console.log(client);
+
+				//var client = new XMLHttpRequest();
+				client.onreadystatechange = function()
+				{
+					if(client.readyState == 4)
+					{
+						console.log("ready state = 4");
+						response = client.responseText;
+						if(client.responseText.length > 0)
+							console.log(response);
+						else
+							console.log("response <= 0");
+						//if(client.status == 200)
+						//{
+						//	console.log("status = 200");
+						//	response = client.responseText;
+						//	console.log(response);
+						//}
+						//delete client;
+					}
+				}
+				client.open("GET", url, true);
+				client.send(null);
+				console.log(client);
+
+				return response;
+			}
+			function showAllBikes()
+			{
+				var url = base_url + "/models";
+				var response = this.callServer(url);
+				console.log(response);
+				document.getElementById("results").innerHTML = response;
+				//window.location = url;
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Willkommen bei Fahrrad-Fritz</h1>
+
+		<p>Bei uns können Sie Fahrräder online mieten und offline fahren.</p>
+		<div>
+			<input type="button" value="alle Fahrräder anzeigen" onclick="showAllBikes();"/>
+		</div>
+		<div id="results">
+		</div>
+	</body>
 </html>
