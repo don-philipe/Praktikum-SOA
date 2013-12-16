@@ -69,7 +69,7 @@ $app->get('/models/:modelId', function ($id) {
 $app->get('/stations', function () use ($app) {
 	//additional parameters
 	$modelId = $app->request()->get('modelId');
-
+	
 	$query = "SELECT stations.id, stations.name, stations.description, stations.picture, COUNT(bikes.id) AS bikes FROM stations LEFT JOIN bikes ON stations.id = bikes.station";
 	
 	//if additional parameters are existing, add to query
@@ -86,6 +86,52 @@ $app->get('/stations', function () use ($app) {
 $app->get('/stations/:stationId', function ($id) {
 	$query = "SELECT * FROM stations WHERE id = $id";
     echo getJsonObjectFromDb($query);
+});
+
+
+$app->get('/account', function () {
+	$query = "SELECT id, email FROM accounts";
+    echo getJsonObjectFromDb($query);
+});
+
+
+$app->get('/bookings', function () {
+	$query = "SELECT id, bike, date FROM bookings";
+    echo getJsonObjectsFromDb($query);
+});
+
+
+$app->get('/bookings/:bookingId', function ($id) {
+	$query = "SELECT id, bike, date FROM bookings WHERE id = $id";
+    echo getJsonObjectFromDb($query);
+});
+
+
+$app->post('/bookings', function() use($app) {
+	$bikeId = $app->request()->get('bikeId');
+	$postQuery = "INSERT INTO bookings (bike, account) VALUES ($bikeId, 1)";
+	
+	$id = addAndGetIdFromDb($postQuery);
+        
+    $query = "SELECT id, bike, date FROM bookings WHERE id = $id";
+    echo getJsonObjectFromDb($query);
+});
+
+
+$app->put('/bookings/:bookingId', function($id) use($app) {
+	$bikeId = $app->request()->params('bikeId');
+	
+	$putQuery = "UPDATE bookings SET bike = $bikeId WHERE id = $id";
+	updateDb($putQuery);
+        
+    $query = "SELECT id, bike, date FROM bookings WHERE id = $id";
+    echo getJsonObjectFromDb($query);
+});
+
+
+$app->delete('/bookings/:bookingId', function($id) use($app) {
+	$query = "DELETE FROM bookings WHERE id = $id";
+	deleteRowInDb($query);
 });
 
 $app->run();
@@ -107,6 +153,29 @@ function getJsonObjectsFromDb($query){
     $objects = $stmt->fetchAll(PDO::FETCH_ASSOC);   
     $dbcon = null;
     return json_encode($objects);    
+}
+
+//Connects to db, adds a row and returns the id
+function addAndGetIdFromDb($query){
+	$dbcon = getConnection();
+    $stmt = $dbcon->query($query);
+    $id = $dbcon->lastInsertId();
+    $dbcon = null;  
+    return $id;
+}
+
+//Connects to db and updates row
+function updateDb($query){
+	$dbcon = getConnection();
+    $stmt = $dbcon->query($query);
+    $dbcon = null;
+}
+
+//Connects to db and delets a row
+function deleteRowInDb($query){
+	$dbcon = getConnection();
+    $stmt = $dbcon->query($query);
+    $dbcon = null;  
 }
 
 // Return a connection to the database using PHP PDO

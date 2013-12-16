@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 12. Dez 2013 um 12:27
+-- Erstellungszeit: 16. Dez 2013 um 13:30
 -- Server Version: 5.1.49
 -- PHP-Version: 5.3.27
 
@@ -27,9 +27,17 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `accounts` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Daten für Tabelle `accounts`
+--
+
+INSERT INTO `accounts` (`id`, `email`) VALUES
+(1, 'test@test.com');
 
 -- --------------------------------------------------------
 
@@ -63,9 +71,20 @@ INSERT INTO `bikes` (`id`, `model`, `station`, `price`, `longitude`, `latitude`,
 --
 
 CREATE TABLE IF NOT EXISTS `bookings` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `bike` int(10) unsigned NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `account` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+--
+-- Daten für Tabelle `bookings`
+--
+
+INSERT INTO `bookings` (`id`, `bike`, `date`, `account`) VALUES
+(1, 1, '2013-12-16 11:08:03', 1),
+(2, 6, '2013-12-16 12:24:02', 1);
 
 -- --------------------------------------------------------
 
