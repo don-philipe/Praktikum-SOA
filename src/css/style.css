@@ -1,0 +1,100 @@
+* {
+	margin: 0;
+}
+
+html, body{
+	font-family: Helvetica;
+	height: 100%;
+}
+
+header{
+	background: #f2f2f2;
+	color: #4e4e4e;
+	height: 150px;
+	border-top: 10px solid #25569f;
+}
+
+nav{
+	font-size: 24px;
+	font-weight: bold;
+	font-variant: small-caps;
+	width: 1200px;
+	margin: 0px auto;
+	padding-top: 100px;
+}
+
+nav ul{
+	margin: 0;
+	padding: 0;
+}
+
+nav li{
+	list-style: none;
+	display: inline;
+	padding: 0px 15px 0px 15px;
+}
+
+section{
+	max-width: 1200px;
+	margin: 0px auto;
+}
+
+#wrapper{
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -25px;	
+}
+
+footer{
+	background: #25569f;
+	color: white;
+	height: 25px;
+	width: 100%;
+}
+
+.station{
+	border-bottom: 1px solid #f2f2f2;
+	padding: 5px;
+	margin-bottom: 15px;
+}
+
+.station:hover{
+	background: #f2f2f2;
+}
+
+.station img{
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+	padding-right: 5px;
+}
+
+.station .name{
+	width: 150px;
+	display: inline-block;
+}
+
+.station .description{
+	display: inline-block;
+}
+
+
+.bikes{
+	border-bottom: 1px solid #f2f2f2;
+	padding: 5px;
+	margin-bottom: 15px;
+}
+
+.bikes:hover{
+	background: #f2f2f2;
+}
+
+.bikes .distance{
+	display: inline-block;
+	width: 150px;
+}
+
+.bikes .price{
+	display: inline-block;
+}

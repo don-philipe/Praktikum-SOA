@@ -1,12 +1,17 @@
 <?php
 include_once('header.php')
 ?>
+
+	<script type="text/javascript">
+		showModel(get_url_param('model'));
+	</script>
 			
 	<section>
 	
-		<article id='home'>
-			<h2>Startseite</h2>
+		<article id='model'>
+			<h2>Modell</h2>
 		</article>
+		
 	</section>
 			
 			

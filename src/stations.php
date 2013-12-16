@@ -1,12 +1,17 @@
 <?php
 include_once('header.php')
 ?>
+
+	<script type="text/javascript">
+		showStations();
+	</script>
 			
 	<section>
 	
-		<article id='home'>
-			<h2>Startseite</h2>
+		<article id='stations'>
+			<h2>Stationen</h2>
 		</article>
+		
 	</section>
 			
 			
