@@ -28,17 +28,43 @@
 \section{URLs}
 \begin{frame}
 	\frametitle*{URLs}
-	\begin{figure}
-		\centering
-		\includegraphics[height=50mm]{pics/endpoints.png}
-	\end{figure}
+	\begin{tabularx}{\columnwidth}{|X|p{1cm}|p{2.5cm}|p{1.5cm}|}
+		\hline
+		Name & Method & URL & Access \\
+		\hline
+		\hline
+		Alle verfügbare Fahrradstationen & GET & /stations & public \\
+		\hline
+		Spezielle Station & GET & /stations/stationID & public \\
+		\hline
+		Alle verfügbaren Fahrräder & GET & /bikes & public \\
+		\hline
+		Spezielles Fahrradmodell & GET & /models/modelsID & public \\
+		\hline
+		Alle Buchungen & GET & /bookings & protected \\
+		\hline
+		Buchung erstellen & POST & /bookings & protected \\
+		\hline
+		Einzelne Buchung & GET & /bookings/bookingID & protected \\
+		\hline
+		Einzelne Buchung stornieren & DELETE & /bookings/bookingID & protected \\
+		\hline
+		Einzelne Buchung bearbeiten & PUT & /bookings/bookingID & protected \\
+		\hline
+		Accountinformationen & GET & /account & protected \\
+		\hline
+	\end{tabularx}
+%	\begin{figure}
+%		\centering
+%		\includegraphics[height=50mm]{pics/endpoints.png}
+%	\end{figure}
 \end{frame}
 
 \section{Anfrage- und Antwort-Parameter}
 \begin{frame}
 	\frametitle*{Anfrage- und Antwort-Parameter}
 	\begin{itemize}
-		\item Beschreibung der Paramater und dessen Format
+		\item Beschreibung der Parameter und deren Format
 		\item Festlegen welche verpflichtend sind und welche optional
 	\end{itemize}
 	\begin{figure}
@@ -71,7 +97,11 @@
 \section{Client-Anwendung}
 \begin{frame}
 	\frametitle*{Client-Anwendung}
-
+	\begin{itemize}
+		\item Weboberfläche
+		\item auch für mobile Geräte geeignet
+		\item Login für Zugriff auf protected Funktionen
+	\end{itemize}
 \end{frame}
 
 \section{Weiteres Vorgehen}
