@@ -84,6 +84,21 @@
 				var url = base_url + "/bookings";
 			}
 
+			function login()
+			{
+				var l = prompt("Your login here:");
+				var btn = document.getElementById("loginbutton");
+				btn.value = "logout";
+				btn.onclick = logout;
+			}
+	
+			function logout()
+			{
+				var btn = document.getElementById("loginbutton");
+				btn.value = "login";
+				btn.onclick = login;
+			}
+
 		</script>
 	</head>
 	<body>
@@ -95,6 +110,7 @@
 			<input type="button" value="show all bikes" onclick="showAllBikes();"/>
 			<input type="button" value="show all stations" onclick="showAllStations();"/>
 			<input type="button" value="show all bookings" onclick="showAllBookings();"/>
+			<input id="loginbutton" type="button" value="login" style="position:absolute;right:20px;" onclick="login();">
 		</div>
 
 		<div id="results" style="height:100px;">
