@@ -12,59 +12,58 @@
 			var base_url = "http://localhost:8000/index.php";
 			function callServer(url)
 			{
-				console.log(url);
 				var response;
 				var client;
 				try
 				{
 					client = new XMLHttpRequest();
 				}
-				catch (e)
+				catch(e)
 				{
 					try
 					{
 						client = new ActiveXObject("Msxml2.XMLHTTP");
 					}
-					catch (e)
+					catch(e)
 					{
 						try
 						{
 							client = new ActiveXObject("Microsoft.XMLHTTP");
 						}
-						catch (e)
+						catch(e)
 						{
 							return;
 						}
 					}
 				}
-				console.log(client);
+				//client.abort();
 
-				//var client = new XMLHttpRequest();
 				client.onreadystatechange = function()
 				{
 					if(client.readyState == 4)
 					{
 						console.log("ready state = 4");
-						response = client.responseText;
-						if(client.responseText.length > 0)
-							console.log(response);
-						else
-							console.log("response <= 0");
-						//if(client.status == 200)
-						//{
-						//	console.log("status = 200");
-						//	response = client.responseText;
-						//	console.log(response);
-						//}
-						//delete client;
+						console.log(client);
+							response = client.responseText;
+							if(response.length > 0)
+								console.log(response);
+							else
+								console.log("response <= 0");
+							console.log("client status " + client.status);
+						if(client.status == 200)
+						{
+							console.log("status = 200");
+						}
+						delete client;
 					}
 				}
 				client.open("GET", url, true);
+				client.setRequestHeader("Content-type","application/x-www-form-urlencoded;charset=UTF-8");
 				client.send(null);
-				console.log(client);
 
 				return response;
 			}
+
 			function showAllBikes()
 			{
 				var url = base_url + "/models";
@@ -73,16 +72,37 @@
 				document.getElementById("results").innerHTML = response;
 				//window.location = url;
 			}
+
+			function showAllStations()
+			{
+				var url = base_url + "/stations";
+				window.location = url;
+			}
+
+			function showAllBookings()
+			{
+				var url = base_url + "/bookings";
+			}
+
 		</script>
 	</head>
 	<body>
-		<h1>Willkommen bei Fahrrad-Fritz</h1>
-
-		<p>Bei uns können Sie Fahrräder online mieten und offline fahren.</p>
-		<div>
-			<input type="button" value="alle Fahrräder anzeigen" onclick="showAllBikes();"/>
+		<div id="headdiv" style="padding-left:10px;">
+			<h1>Willkommen bei Fahrrad-Fritz</h1>
+			<p>Bei uns können Sie Fahrräder online mieten und offline fahren.</p>
 		</div>
-		<div id="results">
+		<div id="functions" style="background:#808080;padding-bottom:2px;padding-top:2px;padding-left:10px;">
+			<input type="button" value="show all bikes" onclick="showAllBikes();"/>
+			<input type="button" value="show all stations" onclick="showAllStations();"/>
+			<input type="button" value="show all bookings" onclick="showAllBookings();"/>
+		</div>
+
+		<div id="results" style="height:100px;">
+		</div>
+
+		<div id="bottomdiv" style="background:#808080;padding-bottom:2px;padding-top:1px;padding-left:10px;">
+			<a href="">contact</a>
+			<a href="">impressum</a>
 		</div>
 	</body>
 </html>
