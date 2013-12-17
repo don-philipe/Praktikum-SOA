@@ -90,6 +90,7 @@
 				var btn = document.getElementById("loginbutton");
 				btn.value = "logout";
 				btn.onclick = logout;
+				addButtons();
 			}
 	
 			function logout()
@@ -97,6 +98,24 @@
 				var btn = document.getElementById("loginbutton");
 				btn.value = "login";
 				btn.onclick = login;
+				removeButtons();
+			}
+
+			function addButtons()
+			{
+				var acc_inf = document.createElement("input");
+				acc_inf.setAttribute("id", "accbtn");
+				acc_inf.setAttribute("type", "button");
+				acc_inf.setAttribute("value", "show accountinformation");
+				acc_inf.setAttribute("onclick", "showAccInfo();");
+				var func_div = document.getElementById("functions");
+				func_div.appendChild(acc_inf);
+			}
+
+			function removeButtons()
+			{
+				var acc_inf = document.getElementById("accbtn");
+				acc_inf.parentNode.removeChild(acc_inf);
 			}
 
 		</script>
@@ -110,7 +129,7 @@
 			<input type="button" value="show all bikes" onclick="showAllBikes();"/>
 			<input type="button" value="show all stations" onclick="showAllStations();"/>
 			<input type="button" value="show all bookings" onclick="showAllBookings();"/>
-			<input id="loginbutton" type="button" value="login" style="position:absolute;right:20px;" onclick="login();">
+			<input id="loginbutton" type="button" value="login" style="position:absolute;right:20px;" onclick="login();"/>
 		</div>
 
 		<div id="results" style="height:100px;">
