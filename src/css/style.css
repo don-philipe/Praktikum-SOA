@@ -53,6 +53,15 @@ footer{
 	width: 100%;
 }
 
+footer div{
+	padding-left: 20px;
+}
+
+footer div a{
+	padding-right: 5px;
+	color: #000000;
+}
+
 .station{
 	border-bottom: 1px solid #f2f2f2;
 	padding: 5px;
