@@ -11,9 +11,22 @@ include_once('header.php')
 		<article id='search'>
 			<h2>Suche</h2>
 			<form action="results.php">
-				<input type="text" name="location" value="Dresden" /> 
-				<input type="number" name="radius" value="5000" /> 
-			    <input type="submit" value="Suche Starten">
+				<table>
+					<tr>
+					<th>Ort:</th>
+					<th><input type="text" name="location" value="Dresden" /></th>
+					</tr>
+					<tr>
+					<th>Radius:</th>
+					<th><input type="number" name="radius" value="5000" /></th> 
+					</tr>
+					<tr>
+					<th>
+					    <input type="submit" value="Suche Starten">
+					</th>
+					<th>
+					</th>
+				</table>
 			</form>
 		</article>
 		
