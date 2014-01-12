@@ -152,15 +152,53 @@ function get_url_param( name ){
 		return results[1];
 }
 
+///////////////////////
+// functions for map //
+///////////////////////
+
+var map;
 function initMap()
 {
 	map = new OpenLayers.Map("basicMap");
 	var mapnik = new OpenLayers.Layer.OSM();
 	map.addLayer(mapnik);
-	map.setCenter(new OpenLayers.LonLat(13.41,52.52) // Center of the map
+	map.setCenter(new OpenLayers.LonLat(13.6869,51.0764) // Center of the map 
 		.transform(
 			new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
 			new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
-		), 15 // Zoom level
+		), 11 // Zoom level
 	);
+}
+
+function addMarker(lon, lat, text)
+{
+	// The overlay layer for our marker, with a simple diamond as symbol
+	var overlay = new OpenLayers.Layer.Vector('Overlay', {
+		styleMap: new OpenLayers.StyleMap({
+			externalGraphic: 'img/map-marker.png',
+			graphicWidth: 20, graphicHeight: 24, graphicYOffset: -24,
+			title: '${tooltip}'
+		})
+	});
+
+	// The location of our marker and popup. We usually think in geographic
+	// coordinates ('EPSG:4326'), but the map is projected ('EPSG:3857').
+	var marker_location = new OpenLayers.Geometry.Point(lon, lat)
+		.transform('EPSG:4326', 'EPSG:900913'); //EPSG:3857');
+
+	// We add the marker with a tooltip text to the overlay
+	overlay.addFeatures([
+		new OpenLayers.Feature.Vector(marker_location, {tooltip: 'OpenLayers'})
+	]);
+
+	// A popup with some information about our location
+	var popup = new OpenLayers.Popup.FramedCloud("Popup", 
+		marker_location.getBounds().getCenterLonLat(), null,
+	        text, 
+		null,
+	        true // <-- true if we want a close (X) button, false otherwise
+	);
+
+	map.addLayer(overlay);
+	map.addPopup(popup);
 }
