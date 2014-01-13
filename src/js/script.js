@@ -157,6 +157,11 @@ function get_url_param( name ){
 ///////////////////////
 
 var map;
+var markers;
+
+/**
+ *
+ */
 function initMap()
 {
 	map = new OpenLayers.Map("basicMap");
@@ -168,12 +173,17 @@ function initMap()
 			new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
 		), 11 // Zoom level
 	);
+	markers = new OpenLayers.Layer.Markers("Markers");
+	map.addLayer(markers);
 }
 
+/**
+ * lon: longitude of marker
+ * lat: latitude of marker
+ * text: text for popup
+ */
 function addMarker(lon, lat, text)
 {
-	var markers = new OpenLayers.Layer.Markers( "Markers" );
-	map.addLayer(markers);
 	var size = new OpenLayers.Size(21,25);
 	var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
 	var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png',size,offset);
@@ -182,35 +192,17 @@ function addMarker(lon, lat, text)
 			new OpenLayers.Projection("EPSG:900913"));
 	var marker = new OpenLayers.Marker(lonlat, icon.clone());
 	marker.events.register("mousedown", marker, function(evt) { 
+		map.addPopup(popup);
 		OpenLayers.Event.stop(evt); 
 	});
 	markers.addMarker(marker);
 
-	// The overlay layer for our marker, with a simple diamond as symbol
-//	var overlay = new OpenLayers.Layer.Vector('Overlay', {
-//		styleMap: new OpenLayers.StyleMap({
-//			externalGraphic: 'img/map-marker.png',
-//			graphicWidth: 20, graphicHeight: 24, graphicYOffset: -24,
-//			title: '${tooltip}'
-//		})
-//	});
-//
-//	// The location of our marker and popup. We usually think in geographic
-//	// coordinates ('EPSG:4326'), but the map is projected ('EPSG:3857').
-//	var marker = new OpenLayers.Geometry.Point(lon, lat)
-//		.transform('EPSG:4326', 'EPSG:900913'); //EPSG:3857');
-//
-//	// We add the marker with a tooltip text to the overlay
-//	overlay.addFeatures([
-//		new OpenLayers.Feature.Vector(marker, {tooltip: 'OpenLayers'})
-//	]);
-
 	// A popup with some information about our location
 	var popup = new OpenLayers.Popup.FramedCloud("Popup", 
-		marker.getBounds().getCenterLonLat(), null, text, null,
-	        true // <-- true if we want a close (X) button, false otherwise
+		lonlat, null, text, null,
+	        true, // <-- true if we want a close (X) button, false otherwise
+		function(evt){
+			map.removePopup(this);
+		}
 	);
-	map.addPopup(popup);
-
-
 }
