@@ -172,33 +172,45 @@ function initMap()
 
 function addMarker(lon, lat, text)
 {
-	// The overlay layer for our marker, with a simple diamond as symbol
-	var overlay = new OpenLayers.Layer.Vector('Overlay', {
-		styleMap: new OpenLayers.StyleMap({
-			externalGraphic: 'img/map-marker.png',
-			graphicWidth: 20, graphicHeight: 24, graphicYOffset: -24,
-			title: '${tooltip}'
-		})
+	var markers = new OpenLayers.Layer.Markers( "Markers" );
+	map.addLayer(markers);
+	var size = new OpenLayers.Size(21,25);
+	var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+	var icon = new OpenLayers.Icon('http://www.openlayers.org/dev/img/marker.png',size,offset);
+	var lonlat = new OpenLayers.LonLat(lon,lat).transform(
+			new OpenLayers.Projection("EPSG:4326"),
+			new OpenLayers.Projection("EPSG:900913"));
+	var marker = new OpenLayers.Marker(lonlat, icon.clone());
+	marker.events.register("mousedown", marker, function(evt) { 
+		OpenLayers.Event.stop(evt); 
 	});
+	markers.addMarker(marker);
 
-	// The location of our marker and popup. We usually think in geographic
-	// coordinates ('EPSG:4326'), but the map is projected ('EPSG:3857').
-	var marker_location = new OpenLayers.Geometry.Point(lon, lat)
-		.transform('EPSG:4326', 'EPSG:900913'); //EPSG:3857');
-
-	// We add the marker with a tooltip text to the overlay
-	overlay.addFeatures([
-		new OpenLayers.Feature.Vector(marker_location, {tooltip: 'OpenLayers'})
-	]);
+	// The overlay layer for our marker, with a simple diamond as symbol
+//	var overlay = new OpenLayers.Layer.Vector('Overlay', {
+//		styleMap: new OpenLayers.StyleMap({
+//			externalGraphic: 'img/map-marker.png',
+//			graphicWidth: 20, graphicHeight: 24, graphicYOffset: -24,
+//			title: '${tooltip}'
+//		})
+//	});
+//
+//	// The location of our marker and popup. We usually think in geographic
+//	// coordinates ('EPSG:4326'), but the map is projected ('EPSG:3857').
+//	var marker = new OpenLayers.Geometry.Point(lon, lat)
+//		.transform('EPSG:4326', 'EPSG:900913'); //EPSG:3857');
+//
+//	// We add the marker with a tooltip text to the overlay
+//	overlay.addFeatures([
+//		new OpenLayers.Feature.Vector(marker, {tooltip: 'OpenLayers'})
+//	]);
 
 	// A popup with some information about our location
 	var popup = new OpenLayers.Popup.FramedCloud("Popup", 
-		marker_location.getBounds().getCenterLonLat(), null,
-	        text, 
-		null,
+		marker.getBounds().getCenterLonLat(), null, text, null,
 	        true // <-- true if we want a close (X) button, false otherwise
 	);
-
-	map.addLayer(overlay);
 	map.addPopup(popup);
+
+
 }
