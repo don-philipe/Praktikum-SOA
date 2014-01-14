@@ -6,7 +6,7 @@ include_once('head.php')
 include_once('header.php')
 ?>
 	<center>
-	<div id="basicMap" style="width:40%; height:400px; margin-top:5px !important; border-style:solid; border-width:1px; border-color:lightgrey;"></div>
+	<div id="basicMap"></div>
 	</center>
 <?php
 include_once('footer.php')

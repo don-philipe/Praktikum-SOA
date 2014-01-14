@@ -1,7 +1,7 @@
 <?php
 include_once('head.php')
 ?>
-<body>
+<body onload="initMap();">
 <?php
 include_once('header.php')
 ?>
@@ -18,6 +18,9 @@ include_once('header.php')
 		</article>
 		
 	</section>
+	<center>
+	<div id="basicMap"></div>
+	</center>
 		
 <?php
 include_once('footer.php')

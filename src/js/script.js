@@ -49,6 +49,8 @@ function showStations() {
 				});
 						         
 		        $('#stations').append(stationDiv);
+			// add a marker for every station:
+			addMarker(station.longitude, station.latitude, stations.description);
 	        }
 	    },
 	    url: '/BikeSharing/api/stations'
