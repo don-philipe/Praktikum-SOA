@@ -71,7 +71,7 @@ $app->get('/stations', function () use ($app) {
 	//additional parameters
 	$modelId = $app->request()->get('modelId');
 	
-	$query = "SELECT stations.id, stations.name, stations.description, stations.picture, COUNT(bikes.id) AS bikes FROM stations LEFT JOIN bikes ON stations.id = bikes.station";
+	$query = "SELECT stations.id, stations.name, stations.longitude, stations.latitude,  stations.description, stations.picture, COUNT(bikes.id) AS bikes FROM stations LEFT JOIN bikes ON stations.id = bikes.station";
 	
 	//if additional parameters are existing, add to query
 	$where = array();
