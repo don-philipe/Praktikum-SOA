@@ -103,25 +103,33 @@ function showModels() {
 	    dataType: 'json',
 	    success: function(data) {
 	        for(var i in data){
-		        var station = data[i];
+		        var model = data[i];
 		        
-		        var stationDiv = $('<div>').attr("class", 'station');
+		        var modelDiv = $('<div>').attr("class", 'container model');
 		        
-		        var picture = $('<img>').attr("scr", station.picture);
-		        var name = $('<p>').attr("class", 'name').append(station.bikes + ' x ' + station.name);
-		        var description = $('<p>').attr("class", 'description').append(station.description);
+		        var picture = $('<img>').attr("src", model.picture);
+		        var content = $('<div>').attr("class", 'content');
+		        
+		        var name = $('<h4>').attr("class", 'name').append(model.name);
+		        
+		        /*
+		        var bikesImg = $('<img>').attr("src", 'img/ic_bike.jpg');
+		        var bikesCount = $('<div>').attr("class", 'bikesCount').append(model.bikes).append(bikesImg);
+		        */
+		        var description = $('<p>').attr("class", 'description').append(model.description);
 		         
-		        stationDiv.append(picture);
-		        stationDiv.append(name);
-		        stationDiv.append(description);
+		        modelDiv.append(picture);
+		        content.append(name);
+		        //content.append(bikesCount);
+		        content.append(description);
+		        modelDiv.append(content);
 		        
-		        stationDiv.bind('click', { id: station.id}, function(event) {
+		        modelDiv.bind('click', { id: model.id}, function(event) {
 					var data = event.data;
 					window.location.href = baseURL + "model.php?model=" + data.id;
-					//window.location.href = "/model.php?model=" + data.id;
 				});
-		         
-		        $('#models').append(stationDiv);
+						         
+		        $('#models').append(modelDiv);
 	        }
 	    },
 	    url: baseURL + 'api/models'

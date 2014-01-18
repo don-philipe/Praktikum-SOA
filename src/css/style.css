@@ -41,7 +41,7 @@ header #logo h1{
 }
 
 header #logo h1 a{
-	color: white;
+	color: #f9f9f9;
 	text-decoration: none;
 }
 
@@ -68,7 +68,7 @@ nav li:first-child{
 }
 
 nav li a{
-	color: white;
+	color: #f9f9f9;
 	text-decoration: none;
 	letter-spacing: 2px;
 }
@@ -90,8 +90,9 @@ section h2{
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
-	margin: 0px auto -40px auto;	
+	margin: 0px auto 0px auto;	
 }
+
 
 /* footer */
 
@@ -125,6 +126,7 @@ footer{
 	color: white;
 	height: 25px;
 	width: 100%;
+	margin-top: -40px;
 }
 
 footer div{
@@ -140,6 +142,10 @@ footer a{
 	letter-spacing: 1px;
 	float: right;
 	margin-left: 15px;
+}
+
+section:last-child{
+	margin-bottom: 55px;
 }
 
 
@@ -162,9 +168,9 @@ footer a{
     -moz-animation-fill-mode:forwards;
     animation-fill-mode:forwards;
  
-    -webkit-animation-duration:0.5s;
-    -moz-animation-duration:0.5s;
-    animation-duration:0.5s;
+    -webkit-animation-duration:1s;
+    -moz-animation-duration:1s;
+    animation-duration:1s;
 }
 
 .container:hover{
@@ -172,9 +178,9 @@ footer a{
 	border-color: #ebebeb;
 	box-shadow: 0px 0px 5px 3px #f6f6f6;
 }
- 
 
 
+/* stations */
 .station{
 	margin-bottom: 15px;
 	height: 100px;
@@ -286,10 +292,7 @@ footer a{
 }
 
 
-
-/**/
-
-
+/* bikes */
 .bikes{
 	border-bottom: 1px solid #f2f2f2;
 	padding: 5px;
@@ -309,13 +312,135 @@ footer a{
 	display: inline-block;
 }
 
-/* map */
 
+/* models */
+.model{
+	margin-bottom: 15px;
+	height: 100px;
+}
+
+.model:hover{
+	cursor: pointer;
+}
+
+.model p{
+	padding: 0;
+	margin: 0;
+}
+
+.model .content{
+}
+
+.model img{
+	width: 100px;
+	height: 100px;
+	float: left;
+	padding-right: 15px;
+}
+
+.model .name{
+	padding-top: 15px;
+	display: inline-block;
+	height: 30px;
+}
+
+.model .description{
+	overflow: hidden;
+	font-size: 12px;
+	height: 40px;
+	padding-right: 15px;
+}
+
+.model .bikesCount{
+	float: right;
+	padding: 15px 15px 0px 0px;
+}
+
+.model .bikesCount img{
+	height: 15px;
+	width: 22px;;
+	padding: 0px 5px 0px 0px;
+	margin: 0;
+}
+
+
+/* search */
+#search tr{
+	height: 40px;
+}
+
+#search tr th{
+	width: 300px;
+	text-align: left;
+}
+
+#search tr th:last-child{
+	width: 470px;
+}
+
+#search input{
+	height: 25px;
+	border: 1px solid #f2f2f2;
+	padding-left: 10px;
+}
+
+#search input[type=text]{
+	width: 220px;
+}
+
+#search input[type=number]{
+	width: 457px;
+}
+
+#search select{
+	width: 470px;
+	border: none;
+	background: transparent;
+	height: 25px;
+	padding-left: 10px;
+	border: 1px solid #f2f2f2;
+   -webkit-appearance: none;
+}
+
+#search input[type=submit]{
+	background-color: #024964;
+	color: white;
+	width: 150px;
+	height: 30px;
+	float: right;
+	margin-top: 10px;
+}
+
+#search tr:last-child th:first-child{
+	font-weight: normal;
+}
+
+
+/* profile */
+
+#profile #personal, #profile #payment{
+	width: 359px;
+	height: 200px;
+	margin: 9px 0px;
+}
+
+#profile #personal{
+	float: left;
+	margin-right: 9px;
+}
+
+#profile #payment{
+	display: inline-block;
+	margin-left: 9px;
+}
+
+#profile #bookings{
+	margin-top: 9px;
+}
+
+
+/* map */
 #basicMap{
-	width: 800px;
-	height: 400px;
-	margin-top: 5px !important;
-	border-style: solid;
-	border-width: 1px;
-	border-color: lightgrey;
+	width: 770px;
+	height: 370px;
 }

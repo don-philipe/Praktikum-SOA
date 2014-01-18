@@ -5,9 +5,15 @@ include_once('head.php')
 <?php
 include_once('header.php')
 ?>
-	<center>
-	<div id="basicMap"></div>
-	</center>
+	
+	<section>
+		<h2>Karte</h2>
+		<article class="container">
+			<div id="basicMap"></div>
+		</article>
+	</section>
+
+
 <?php
 include_once('footer.php')
 ?>

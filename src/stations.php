@@ -16,11 +16,12 @@ include_once('header.php')
 			<h2>Stationen</h2>
 			<!--TODO: insert OSM map and get gps from db-->
 		</article>
+
+		<article class="container">
+			<div id="basicMap"></div>
+		</article>
 		
 	</section>
-	<center>
-	<div id="basicMap"></div>
-	</center>
 		
 <?php
 include_once('footer.php')
