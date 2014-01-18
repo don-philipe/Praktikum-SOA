@@ -13,7 +13,7 @@ include_once('header.php')
 	<section>
 	
 		<article id='station'>
-			<h2>Station</h2>
+			<h2 id="sectionHeadline">Station</h2>
 		</article>
 		
 	</section>

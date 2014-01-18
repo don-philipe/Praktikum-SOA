@@ -5,22 +5,51 @@
 html, body{
 	font-family: Helvetica;
 	height: 100%;
+	background: #f9f9f9;
+	color: #5d5d5d;
+}
+
+h2{
+	color: #3d3d3d;
 }
 
 header{
-	background: #f2f2f2;
-	color: #4e4e4e;
+	background: #024964;
+	color: #ffffff;
 	height: 150px;
-	border-top: 10px solid #25569f;
+}
+
+header #logo{
+	height: 115px;
+	width: 800px;
+	margin: 0px auto;
+	position: relative;
+}
+
+header #logo img{
+	height: 120px;
+	margin-top: 15px;
+	position: absolute;
+	right: 0;
+}
+
+header #logo h1{
+	position: absolute;
+	right: 200px;
+	top: 39px;	
+	letter-spacing: 15px;
+}
+
+header #logo h1 a{
+	color: white;
+	text-decoration: none;
 }
 
 nav{
-	font-size: 24px;
-	font-weight: bold;
+	font-size: 18px;
 	font-variant: small-caps;
-	width: 1200px;
+	width: 800px;
 	margin: 0px auto;
-	padding-top: 100px;
 }
 
 nav ul{
@@ -31,62 +60,230 @@ nav ul{
 nav li{
 	list-style: none;
 	display: inline;
-	padding: 0px 15px 0px 15px;
+	padding: 0px 12px 0px 12px;
+}
+
+nav li:first-child{
+	padding: 0px 12px 0px 0px;;
+}
+
+nav li a{
+	color: white;
+	text-decoration: none;
+	letter-spacing: 2px;
+}
+
+nav li a:hover{
+	text-shadow: 0px 0px 10px white;
 }
 
 section{
-	max-width: 1200px;
+	max-width: 800px;
 	margin: 0px auto;
+}
+
+section h2{
+	padding: 25px 0px 25px 0px;
 }
 
 #wrapper{
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
-	margin: 0 auto -25px;	
+	margin: 0px auto -40px auto;	
 }
 
+/* footer */
+
+/* make keyframes that tell the start state and the end state of our object */
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+ 
+footer {
+    opacity:0;  /* make things invisible upon start */
+    -webkit-animation: fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+ 
+    -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+    -moz-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;
+    
+    -webkit-animation-delay: 0.5s;
+    -moz-animation-delay: 0.5s
+    animation-delay: 0.5s;
+ 
+    -webkit-animation-duration: 0.5s;
+    -moz-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+}
+
+
 footer{
-	background: #25569f;
+	background: #024964;
 	color: white;
 	height: 25px;
 	width: 100%;
 }
 
 footer div{
-	padding-left: 250px;
+	width: 800px;
+	margin: 0px auto;
+	padding: 7px 15px 0px 0px;
 }
 
-footer div a{
-	padding-right: 5px;
-	color: #000000;
+footer a{
+	color: white;
+	font-size: 11px;
+	text-decoration: none;
+	letter-spacing: 1px;
+	float: right;
+	margin-left: 15px;
 }
+
+
+/* make keyframes that tell the start state and the end state of our object */
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+ 
+.container {
+	border: 1px solid #f2f2f2;
+	background: white;
+	
+    opacity:0;  /* make things invisible upon start */
+    -webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+    -moz-animation:fadeIn ease-in 1;
+    animation:fadeIn ease-in 1;
+ 
+    -webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+    -moz-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;
+ 
+    -webkit-animation-duration:0.5s;
+    -moz-animation-duration:0.5s;
+    animation-duration:0.5s;
+}
+
+.container:hover{
+	color: #3d3d3d;
+	border-color: #ebebeb;
+	box-shadow: 0px 0px 5px 3px #f6f6f6;
+}
+ 
+
 
 .station{
-	border-bottom: 1px solid #f2f2f2;
-	padding: 5px;
+	/*padding: 5px;*/
 	margin-bottom: 15px;
+	height: 100px;
 }
 
 .station:hover{
-	background: #f2f2f2;
+	cursor: pointer;
+}
+
+.station p{
+	padding: 0;
+	margin: 0;
+}
+
+.station .content{
 }
 
 .station img{
-	width: 50px;
-	height: 50px;
-	display: inline-block;
-	padding-right: 5px;
+	width: 100px;
+	height: 100px;
+	float: left;
+	padding-right: 15px;
 }
 
 .station .name{
-	width: 150px;
+	padding-top: 15px;
 	display: inline-block;
+	height: 30px;
 }
 
 .station .description{
-	display: inline-block;
+	overflow: hidden;
+	font-size: 12px;
+	height: 40px;
+	padding-right: 15px;
 }
+
+.station .bikesCount{
+	float: right;
+	padding: 15px 15px 0px 0px;
+}
+
+.station .bikesCount img{
+	height: 15px;
+	width: 22px;;
+	padding: 0px 5px 0px 0px;
+	margin: 0;
+}
+
+
+/* station detail */
+#description{
+	width: 770px;
+	margin: 9px 0px;
+	padding: 15px;
+}
+
+#picture, #map{
+	width: 389px;
+	height: 389px;
+	margin: 9px 0px;
+}
+
+#picture{
+	float: left;
+	margin-right: 9px;
+}
+
+#map{
+	display: inline-block;
+	margin-left: 9px;
+}
+
+
+#picture img{
+	width: 359px;
+	height: 359px;
+	padding: 15px;
+}
+
+.bike{
+	width: 770px;
+	margin: 9px 0px;
+	padding: 15px;
+}
+
+.bike .booking{
+	float: right;
+	width: 100px;
+}
+
+.bike .booking:hover{
+	cursor: pointer;
+}
+
+.bike .booking img{
+	height: 22px;
+	width: 22px;
+	float: right;
+}
+
+.bike .booking .price{
+	float: right;
+	margin-right: 5px;
+	padding-top: 2px;
+}
+
+
+/**/
 
 
 .bikes{
@@ -108,8 +305,10 @@ footer div a{
 	display: inline-block;
 }
 
+/* map */
+
 #basicMap{
-	width: 40%;
+	width: 800px;
 	height: 400px;
 	margin-top: 5px !important;
 	border-style: solid;

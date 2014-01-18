@@ -1,3 +1,5 @@
+var baseURL = '/BikeSharing/src/';
+
 window.onload = function() {    
 }
 
@@ -7,21 +9,58 @@ function showStation(id) {
 	    success: function(data) {
 	        var station = data;
 	        
-	        var stationDiv = $('<div>').attr("class", 'station');
+	        $('#sectionHeadline').text(station.name);
 	        
-	        var picture = $('<img>').attr("scr", station.picture);
-	        var name = $('<p>').attr("class", 'name').append(station.name);
-	        var description = $('<p>').attr("class", 'description').append(station.description);
-	         
-	        stationDiv.append(picture);
-	        stationDiv.append(name);
-	        stationDiv.append(description);
-	        	         
-	        $('#station').append(stationDiv);
+	        //description
+	        var descriptionDiv = $('<div>').attr("class", 'container').attr("id", 'description');
+	         var description = $('<p>').attr("class", 'description').append(station.description);
+	         descriptionDiv.append(description);
+	        
+	        //picture
+	        var pictureDiv = $('<div>').attr("class", 'container').attr("id", 'picture');
+	        var picture = $('<img>').attr("src", station.picture);
+	        pictureDiv.append(picture);
+	        
+	        //map
+	        var mapDiv = $('<div>').attr("class", 'container').attr("id", 'map');
+	        	
+	       	$('#station').append(descriptionDiv); 	         
+	        $('#station').append(pictureDiv);
+	        $('#station').append(mapDiv);
+	        
+	        showBikesForStation(id);
 	        
 	    },
-	    url: '/BikeSharing/api/stations/' + id
-	    //url: '/api/stations/' + id
+	    url: baseURL + 'api/stations/' + id
+	});
+}
+
+function showBikesForStation(id) {
+  	$.ajax({
+	    dataType: 'json',
+	    success: function(data) {
+	        //var bike = data[0];
+	        
+	        for(var i = 0; i < data.length; i++){
+		        var bike = data[i];
+		        var bikeDiv = $('<div>').attr("class", 'container bike');
+		        
+		         //bike id
+		        var bikeId = $('<p>').attr("class", 'modelId').append(bike.id);
+		         
+		        //booking
+		        var bookingDiv = $('<div>').attr("class", 'booking');
+		        var bookingIcon = $('<img>').attr("src", 'img/ic_booking.png');
+		        var bookingPrice = $('<p>').attr("class", 'price').append(bike.price/100 + ' € / h');
+		        bookingDiv.append(bookingIcon).append(bookingPrice);
+		         
+		        bikeDiv.append(bookingDiv);
+		        bikeDiv.append(bikeId);
+		        $('#station').append(bikeDiv);
+		    }
+	        
+	    },
+	    url: baseURL + 'api/bikes?location=Dresden&radius=100000000&stationId=' + id
 	});
 }
 
@@ -32,29 +71,36 @@ function showStations() {
 	        for(var i in data){
 		        var station = data[i];
 		        
-		        var stationDiv = $('<div>').attr("class", 'station');
+		        var stationDiv = $('<div>').attr("class", 'container station');
 		        
-		        var picture = $('<img>').attr("scr", station.picture);
-		        var name = $('<p>').attr("class", 'name').append(station.name);
+		        var picture = $('<img>').attr("src", station.picture);
+		        var content = $('<div>').attr("class", 'content');
+		        
+		        var name = $('<h4>').attr("class", 'name').append(station.name);
+		        
+		        var bikesImg = $('<img>').attr("src", 'img/ic_bike.jpg');
+		        var bikesCount = $('<div>').attr("class", 'bikesCount').append(station.bikes).append(bikesImg);
+		        
 		        var description = $('<p>').attr("class", 'description').append(station.description);
 		         
 		        stationDiv.append(picture);
-		        stationDiv.append(name);
-		        stationDiv.append(description);
+		        content.append(name);
+		        content.append(bikesCount);
+		        content.append(description);
+		        stationDiv.append(content);
 		        
 		        stationDiv.bind('click', { id: station.id}, function(event) {
 					var data = event.data;
-					window.location.href = "/BikeSharing/station.php?station=" + data.id;
-					//window.location.href = "/station.php?station=" + data.id;
+					window.location.href = baseURL + "station.php?station=" + data.id;
 				});
 						         
 		        $('#stations').append(stationDiv);
-			// add a marker for every station:
+		        
+		        // add a marker for every station:
 			addMarker(station.longitude, station.latitude, stations.description);
 	        }
 	    },
-	    url: '/BikeSharing/api/stations'
-	    //url: '/api/stations'
+	    url: baseURL + 'api/stations'
 	});
 }
 
@@ -77,14 +123,14 @@ function showModels() {
 		        
 		        stationDiv.bind('click', { id: station.id}, function(event) {
 					var data = event.data;
-					window.location.href = "/BikeSharing/model.php?model=" + data.id;
+					window.location.href = baseURL + "model.php?model=" + data.id;
 					//window.location.href = "/model.php?model=" + data.id;
 				});
 		         
 		        $('#models').append(stationDiv);
 	        }
 	    },
-	    url: '/BikeSharing/api/models'
+	    url: baseURL + 'api/models'
 	    //url: '/api/models'
 	});
 }
@@ -106,7 +152,7 @@ function showModel(id) {
 	       
 	        $('#model').append(stationDiv);
 	    },
-	    url: '/BikeSharing/api/models/' + id
+	    url: baseURL + 'api/models/' + id
 	    //url: '/api/models/' + id
 	});
 }
@@ -136,7 +182,7 @@ function showResults(location, radius) {
 		        $('#results').append(stationDiv);
 	        }
 	    },
-	    url: '/BikeSharing/api/bikes?location=' + location + '&radius=' + radius
+	    url: baseURL + 'api/bikes?location=' + location + '&radius=' + radius
 	    //url: '/api/bikes?location=' + location + '&radius=' + radius
 	});
 }

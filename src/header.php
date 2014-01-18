@@ -1,5 +1,10 @@
 <div id="wrapper">
 	<header>
+		<div id="logo">
+			<h1><a href="index.php">BikeSharing</a></h1>
+			<img src="img/logo.png">
+		</div>
+	
 		<nav>
 			<ul>
 				<li><a href="index.php">Startseite</a></li>
