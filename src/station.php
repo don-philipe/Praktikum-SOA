@@ -1,7 +1,7 @@
 <?php
 include_once('head.php')
 ?>
-<body>
+<body  onload="initSmallMap()">
 <?php
 include_once('header.php')
 ?>
@@ -14,6 +14,11 @@ include_once('header.php')
 	
 		<article id='station'>
 			<h2 id="sectionHeadline">Station</h2>
+			<div class="container" id="description"></div>
+			<div class="container" id="picture"></div>
+			<div class="container" id="map">
+				<div id="smallMap"></div>
+			</div>
 		</article>
 		
 	</section>

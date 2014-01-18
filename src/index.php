@@ -10,7 +10,7 @@ include_once('header.php')
 	
 		<article id='home'>
 			<h2>Willkommen beim Bikesharingservice</h2>
-			<p>
+			<p class="container" id="description">
 				Sie wollen von A nach B mit dem Fahrrad und nicht erst lange einen Fahrradvermieter suchen?
 				Dann buchen sie bei uns bequem online ihr Fahrrad stunden-, oder auch tageweise.
 				Sie brauchen das Fahrrad nicht zu seinem Ausgangspunkt zurückbringen, sondern können es dort stehen lassen wo Sie es nicht mehr benötigen.

@@ -12,24 +12,18 @@ function showStation(id) {
 	        $('#sectionHeadline').text(station.name);
 	        
 	        //description
-	        var descriptionDiv = $('<div>').attr("class", 'container').attr("id", 'description');
-	         var description = $('<p>').attr("class", 'description').append(station.description);
-	         descriptionDiv.append(description);
+	        var description = $('<p>').attr("class", 'description').append(station.description);
+	        $('#description').append(description);
 	        
 	        //picture
-	        var pictureDiv = $('<div>').attr("class", 'container').attr("id", 'picture');
 	        var picture = $('<img>').attr("src", station.picture);
-	        pictureDiv.append(picture);
+	        $('#picture').append(picture);
 	        
 	        //map
-	        var mapDiv = $('<div>').attr("class", 'container').attr("id", 'map');
-	        	
-	       	$('#station').append(descriptionDiv); 	         
-	        $('#station').append(pictureDiv);
-	        $('#station').append(mapDiv);
+	        addMarker(station.longitude, station.latitude, station.nam);
 	        
+	        //bikes
 	        showBikesForStation(id);
-	        
 	    },
 	    url: baseURL + 'api/stations/' + id
 	});
@@ -97,7 +91,7 @@ function showStations() {
 		        $('#stations').append(stationDiv);
 		        
 		        // add a marker for every station:
-			addMarker(station.longitude, station.latitude, stations.description);
+				addMarker(station.longitude, station.latitude, station.name);
 	        }
 	    },
 	    url: baseURL + 'api/stations'
@@ -213,6 +207,21 @@ var markers;
 function initMap()
 {
 	map = new OpenLayers.Map("basicMap");
+	var mapnik = new OpenLayers.Layer.OSM();
+	map.addLayer(mapnik);
+	map.setCenter(new OpenLayers.LonLat(13.6869,51.0764) // Center of the map 
+		.transform(
+			new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+			new OpenLayers.Projection("EPSG:900913") // to Spherical Mercator Projection
+		), 11 // Zoom level
+	);
+	markers = new OpenLayers.Layer.Markers("Markers");
+	map.addLayer(markers);
+}
+
+function initSmallMap()
+{
+	map = new OpenLayers.Map("smallMap");
 	var mapnik = new OpenLayers.Layer.OSM();
 	map.addLayer(mapnik);
 	map.setCenter(new OpenLayers.LonLat(13.6869,51.0764) // Center of the map 
