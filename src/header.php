@@ -12,8 +12,7 @@
 				<li><a href="stations.php">Standorte</a></li>
 				<li><a href="models.php">Modelle</a></li>
 				<li><a href="map.php">Karte</a></li>
-				<li><a href="profile.php">Profil</a></li>
-				<!--<li><a href="contact.php">Kontakt</a></li>-->
+				<li><a href="login.php">Login</a></li>
 			</ul>
 		</nav>
 	</header>

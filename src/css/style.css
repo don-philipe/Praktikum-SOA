@@ -415,6 +415,52 @@ section:last-child{
 	font-weight: normal;
 }
 
+/* login*/
+#loginform tr{
+	height: 40px;
+}
+
+#loginform tr th{
+	text-align: left;
+}
+
+#loginform input{
+	height: 25px;
+	border: 1px solid #f2f2f2;
+	padding-left: 10px;
+}
+
+#loginform input[type=text]{
+	width: 220px;
+}
+
+#loginform input[type=number]{
+	width: 457px;
+}
+
+#loginform select{
+	width: 470px;
+	border: none;
+	background: transparent;
+	height: 25px;
+	padding-left: 10px;
+	border: 1px solid #f2f2f2;
+   -webkit-appearance: none;
+}
+
+#loginform input[type=submit]{
+	background-color: #024964;
+	color: white;
+	width: 150px;
+	height: 30px;
+	float: right;
+	margin-top: 10px;
+}
+
+#loginform tr:last-child th:first-child{
+	font-weight: normal;
+}
+
 
 /* profile */
 
