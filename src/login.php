@@ -5,10 +5,13 @@ include_once('head.php')
 <?php
 include_once('header.php')
 ?>
+	<script type="text/javascript">
+		login(get_url_param('loginname'), get_url_param('passwd'));
+	</script>
 	<section>
 		<article id='login'>
 			<h2>Login</h2>
-			<form class='container' id='loginform' method="post" action='login.php'>
+			<form class='container' id='loginform' method="get" action='login.php'>
 				<table>
 					<tr>
 						<th>Login:</th>
@@ -29,7 +32,8 @@ include_once('header.php')
 					</tr>
 				</table>
 			</form>
-			<div id='loginstatus'></div>
+		</article>
+		<article id='loginstatus'>
 		</article>
 	</section>
 <?php

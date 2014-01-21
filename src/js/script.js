@@ -3,9 +3,7 @@ var baseURL = '/';
 
 window.onload = function() {    
 }
-
-function showStation(id) {
-  	$.ajax({
+function showStation(id) { $.ajax({
 	    dataType: 'json',
 	    success: function(data) {
 	        var station = data;
@@ -199,20 +197,20 @@ function get_url_param( name ){
 		return results[1];
 }
 
-function login() {
+function login(login, passwd) {
+	passwdhash = md5(passwd);
+	console.log(passwdhash);
 	$.ajax({
 	    dataType: 'json',
 	    success: function(data) {
 	        var stat = data;
 	        var statDiv = $('<div>').attr("class", 'stat');
-	        
 	        var bool = $('<p>').attr("class", 'bool').append(stat.stat);
 	         
 	        statDiv.append(bool);
-	       
 	        $('#loginstatus').append(statDiv);
 	    },
-	    url: baseURL + 'api/login'
+	    url: baseURL + 'api/login/' + login + '/' + passwdhash
 	});
 }
 

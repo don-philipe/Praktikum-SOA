@@ -138,8 +138,8 @@ $app->delete('/bookings/:bookingId', function($id) use($app) {
 	deleteRowInDb($query, $app);
 });
 
-$app->post('/login', function($login, $password) use($app)
-	{
+$app->get('/login', function($login, $password) use($app)
+	{	
 		$query = "SELECT passwd FROM accounts WHERE login = $login";
 		$passwd = getJsonObjectFromDb($query, $app);
 		if($passwd == $password)
