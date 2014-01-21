@@ -1,4 +1,5 @@
-var baseURL = '/BikeSharing/src/';
+//var baseURL = '/BikeSharing/src/';
+var baseURL = '/';
 
 window.onload = function() {    
 }
@@ -90,8 +91,7 @@ function showStations() {
 						         
 		        $('#stations').append(stationDiv);
 		        
-		        // add a marker for every station:
-				addMarker(station.longitude, station.latitude, station.name);
+			addMarker(station.longitude, station.latitude, station.name);
 	        }
 	    },
 	    url: baseURL + 'api/stations'
@@ -133,7 +133,6 @@ function showModels() {
 	        }
 	    },
 	    url: baseURL + 'api/models'
-	    //url: '/api/models'
 	});
 }
 
@@ -155,7 +154,6 @@ function showModel(id) {
 	        $('#model').append(stationDiv);
 	    },
 	    url: baseURL + 'api/models/' + id
-	    //url: '/api/models/' + id
 	});
 }
 
@@ -185,7 +183,6 @@ function showResults(location, radius) {
 	        }
 	    },
 	    url: baseURL + 'api/bikes?location=' + location + '&radius=' + radius
-	    //url: '/api/bikes?location=' + location + '&radius=' + radius
 	});
 }
 
@@ -200,6 +197,23 @@ function get_url_param( name ){
 		return "";
 	else
 		return results[1];
+}
+
+function login() {
+	$.ajax({
+	    dataType: 'json',
+	    success: function(data) {
+	        var stat = data;
+	        var statDiv = $('<div>').attr("class", 'stat');
+	        
+	        var bool = $('<p>').attr("class", 'bool').append(stat.stat);
+	         
+	        statDiv.append(bool);
+	       
+	        $('#loginstatus').append(statDiv);
+	    },
+	    url: baseURL + 'api/login'
+	});
 }
 
 ///////////////////////

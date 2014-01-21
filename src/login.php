@@ -8,7 +8,7 @@ include_once('header.php')
 	<section>
 		<article id='login'>
 			<h2>Login</h2>
-			<form class='container' id='loginform' action=''>
+			<form class='container' id='loginform' method="post" action='login.php'>
 				<table>
 					<tr>
 						<th>Login:</th>
@@ -29,6 +29,7 @@ include_once('header.php')
 					</tr>
 				</table>
 			</form>
+			<div id='loginstatus'></div>
 		</article>
 	</section>
 <?php
