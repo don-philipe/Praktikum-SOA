@@ -29,15 +29,18 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `accounts` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL DEFAULT '',
+  `login` varchar(16) NOT NULL DEFAULT '',
+  `passwd varchar(32) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Daten für Tabelle `accounts`
+-- Testaccountpasswort -> sharing
 --
 
-INSERT INTO `accounts` (`id`, `email`) VALUES
-(1, 'test@test.com');
+INSERT INTO `accounts` (`id`, `email`, `login`, `passwd`) VALUES
+(1, 'test@test.com', 'bike', '06b3513ef848b1cf5ffa20e67ad18254');
 
 -- --------------------------------------------------------
 
@@ -62,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `bikes` (
 
 INSERT INTO `bikes` (`id`, `model`, `station`, `price`, `longitude`, `latitude`, `isUsed`) VALUES
 (1, 2, 2, 100, '13.74951000', '51.02927000', 0),
-(2, 2, 1, 80, '-74.40898606', '40.21727401', 1);
+(2, 2, 1, 80, '13.40898606', '51.21727401', 1);
 
 -- --------------------------------------------------------
 
@@ -129,8 +132,8 @@ CREATE TABLE IF NOT EXISTS `stations` (
 --
 
 INSERT INTO `stations` (`id`, `name`, `longitude`, `latitude`, `description`, `picture`) VALUES
-(1, 'Hauptbahnhof', '-74.10898606', '40.91727401', 'Tolle Station am Hauptbahnhof, direkt vor dem Ausgang.', 'www.test.de/station1.jpg'),
-(2, 'Zoo', '-74.00898606', '40.71727401', 'Station am Zoo.', 'www.test.de/station2.jpg');
+(1, 'Hauptbahnhof', '13.73371', '51.04053', 'Tolle Station am Hauptbahnhof, direkt vor dem Ausgang.', 'www.test.de/station1.jpg'),
+(2, 'Zoo', '13.75272', '51.03699', 'Station am Zoo.', 'www.test.de/station2.jpg');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
