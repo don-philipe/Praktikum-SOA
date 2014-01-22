@@ -5,10 +5,14 @@ require 'lib/Slim/Slim.php';
 $app = new \Slim\Slim();
 $app->contentType('application/json');
 
+
 $app->get('/', function () {
 	
 });
 
+/* #################################################################
+ * The following apis are public.
+################################################################# */
 
 $app->get('/bikes', function () use ($app) {
 	//additional parameters
@@ -89,67 +93,85 @@ $app->get('/stations/:stationId', function ($id) use ($app) {
     echo getJsonObjectFromDb($query, $app);
 });
 
-
+/*
 $app->get('/account', function () use ($app) {
 	$query = "SELECT id, email FROM accounts";
     echo getJsonObjectFromDb($query, $app);
 });
+*/
 
 
-$app->get('/bookings', function () use ($app) {
-	$query = "SELECT id, bike, date FROM bookings";
-    echo getJsonObjectsFromDb($query, $app);
-});
+/* #################################################################
+ * The following apis are private and require a valid access token.
+################################################################# */
+require_once 'server.php';
 
+if (!$server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
+	$token = $server->getAccessTokenData(OAuth2\Request::createFromGlobals());
+	//if($token != null){
+		echo("hallo");
+    	//$server->getResponse()->send();
+		//die;
+    //}
+}else{
+	//echo json_encode(array('success' => true, 'message' => 'You accessed my APIs!'));
+	$token = $server->getAccessTokenData(OAuth2\Request::createFromGlobals());
+	$userId = $token['user_id'];
 
-$app->get('/bookings/:bookingId', function ($id) use ($app) {
-	$query = "SELECT id, bike, date FROM bookings WHERE id = $id";
-    echo getJsonObjectFromDb($query, $app);
-});
-
-
-$app->post('/bookings', function() use($app) {
-	$bikeId = $app->request()->params('bikeId');
-	if(!$bikeId) $app->halt(400, 'Parameter missing!');
 	
-	$postQuery = "INSERT INTO bookings (bike, account) VALUES ($bikeId, 1)";
-	
-	$id = addAndGetIdFromDb($postQuery, $app);
-                
-    $query = "SELECT id, bike, date FROM bookings WHERE id = $id";
-    echo getJsonObjectFromDb($query, $app);
-    $app->response()->status(201);
-});
-
-
-$app->put('/bookings/:bookingId', function($id) use($app) {
-	$bikeId = $app->request()->params('bikeId');
-	
-	$putQuery = "UPDATE bookings SET bike = $bikeId WHERE id = $id";
-	updateDb($putQuery, $app);
-        
-    $query = "SELECT id, bike, date FROM bookings WHERE id = $id";
-    echo getJsonObjectFromDb($query, $app);
-});
-
-
-$app->delete('/bookings/:bookingId', function($id) use($app) {
-	$query = "DELETE FROM bookings WHERE id = $id";
-	deleteRowInDb($query, $app);
-});
-
-$app->get('/login', function($login, $password) use($app)
-	{	
-		$query = "SELECT passwd FROM accounts WHERE login = $login";
-		$passwd = getJsonObjectFromDb($query, $app);
-		if($passwd == $password)
-			echo "true";
-		else
-			echo "false";
+	$app->get('/account', function () use ($app, $userId) {
+		$query = "SELECT id, email FROM accounts WHERE id = $userId";
+	    echo getJsonObjectFromDb($query, $app);
 	});
+
+	$app->get('/bookings', function () use ($app, $userId) {
+		$query = "SELECT id, bike, date FROM bookings WHERE account = $userId";
+	    echo getJsonObjectsFromDb($query, $app);
+	});
+
+	$app->get('/bookings/:bookingId', function ($id) use ($app, $userId) {
+		$query = "SELECT id, bike, date FROM bookings WHERE id = $id";
+	    echo getJsonObjectFromDb($query, $app);
+	});
+	
+	$app->post('/bookings', function() use($app, $userId, $server) {
+		$bikeId = $app->request()->params('bikeId');
+		if(!$bikeId) $app->halt(400, 'POST Parameter missing!');
+		
+		$postQuery = "INSERT INTO bookings (bike, account) VALUES ($bikeId, 1)";
+		
+		$id = addAndGetIdFromDb($postQuery, $app);
+	                
+	    $query = "SELECT id, bike, date FROM bookings WHERE id = $id";
+	    echo getJsonObjectFromDb($query, $app);
+	    $app->response()->status(201);
+	});
+	
+	
+	$app->put('/bookings/:bookingId', function($id) use($app, $userId) {
+		$bikeId = $app->request()->params('bikeId');
+		
+		$putQuery = "UPDATE bookings SET bike = $bikeId WHERE id = $id";
+		updateDb($putQuery, $app);
+	        
+	    $query = "SELECT id, bike, date FROM bookings WHERE id = $id";
+	    echo getJsonObjectFromDb($query, $app);
+	});
+	
+	
+	$app->delete('/bookings/:bookingId', function($id) use($app, $userId) {
+		$query = "DELETE FROM bookings WHERE id = $id";
+		deleteRowInDb($query, $app);
+	});	
+	
+}
 
 $app->run();
 
+
+/* #################################################################
+ * Some usefull functions.
+################################################################# */
 
 //Connects to db and returns a single result for the given query
 function getJsonObjectFromDb($query, $app){
