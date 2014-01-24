@@ -485,6 +485,38 @@ section:last-child{
 }
 
 
+/* bookings */
+#bookings li{
+	list-style: none;
+}
+
+#bookings ul{
+	padding: 0;
+	margin: 0;
+}
+
+#bookings .booking div{
+	display: inline-block;
+	padding: 15px 0px 15px 0px;
+}
+
+#bookings .booking div.id{
+	width: 100px;
+}
+
+#bookings .booking div.bikeId{
+	width: 100px;
+}
+
+#bookings .booking div.booked{
+	width: 200px;
+}
+
+#bookings .booking div.released{
+	width: 200px;
+}
+
+
 /* map */
 #basicMap{
 	width: 770px;

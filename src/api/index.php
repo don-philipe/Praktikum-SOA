@@ -32,6 +32,7 @@ $app->get('/bikes', function () use ($app) {
 	$where = array();
 	if ($stationId != '') $where[] = "station = $stationId";
 	if ($modelId != '') $where[] = "model = $modelId";
+	$where[] = "isUsed = '0'";
 	if (count($where) > 0) $query .= ' WHERE '.implode(' AND ', $where);
 	
 	//limit bikes to selected distance
@@ -93,12 +94,41 @@ $app->get('/stations/:stationId', function ($id) use ($app) {
     echo getJsonObjectFromDb($query, $app);
 });
 
-/*
-$app->get('/account', function () use ($app) {
-	$query = "SELECT id, email FROM accounts";
-    echo getJsonObjectFromDb($query, $app);
-});
-*/
+
+
+	$app->put('/bookings/:bookingId', function($id) use($app) {
+		$bikeIdQuery = "SELECT bike FROM bookings WHERE id = $id";
+		$bikeId = getObjectFromDb($bikeIdQuery, $app)->bike; 
+		
+		$bikePriceQuery = "SELECT price FROM bikes WHERE id = $bikeId";
+		$bikePrice = getObjectFromDb($bikePriceQuery, $app)->price; 
+		
+		$bikeBookedQuery = "SELECT date FROM bookings WHERE id = $id";
+		$bikeBooked = getObjectFromDb($bikeBookedQuery, $app)->date; 
+		
+		$date1 = strtotime($bikeBooked);
+		$date2 = time();
+		//$mins = ($date2 - $date1) / 60;
+		//$costs = $mins * $bikePrice;
+		//echo($mins);
+		
+		//print_r($date1);
+		
+		$timeSlots = ceil((abs($date2 - $date1) / 60) / 15);
+		$costs = $timeSlots * $bikePrice;
+		echo $costs;
+		
+		
+		//echo . " minute";
+
+
+		$bikeQuery = "UPDATE bikes SET isUsed = 0 WHERE id = $bikeId";
+		updateDb($bikeQuery, $app);
+
+		$bookingQuery = "UPDATE bookings SET released = now(), costs = $costs WHERE id = $id";
+		updateDb($bookingQuery, $app);
+		
+	});
 
 
 /* #################################################################
@@ -108,24 +138,22 @@ require_once 'server.php';
 
 if (!$server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
 	$token = $server->getAccessTokenData(OAuth2\Request::createFromGlobals());
-	//if($token != null){
-		echo("hallo");
-    	//$server->getResponse()->send();
-		//die;
-    //}
+    $status = $server->getResponse()->getStatusCode();
+    if($status == 401 && $token != ""){
+	   	die;
+    }
 }else{
-	//echo json_encode(array('success' => true, 'message' => 'You accessed my APIs!'));
 	$token = $server->getAccessTokenData(OAuth2\Request::createFromGlobals());
 	$userId = $token['user_id'];
 
 	
 	$app->get('/account', function () use ($app, $userId) {
-		$query = "SELECT id, email FROM accounts WHERE id = $userId";
+		$query = "SELECT id, email, login FROM accounts WHERE id = $userId";
 	    echo getJsonObjectFromDb($query, $app);
 	});
 
 	$app->get('/bookings', function () use ($app, $userId) {
-		$query = "SELECT id, bike, date FROM bookings WHERE account = $userId";
+		$query = "SELECT id, bike, date, released, costs FROM bookings WHERE account = $userId";
 	    echo getJsonObjectsFromDb($query, $app);
 	});
 
@@ -136,18 +164,24 @@ if (!$server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
 	
 	$app->post('/bookings', function() use($app, $userId, $server) {
 		$bikeId = $app->request()->params('bikeId');
-		if(!$bikeId) $app->halt(400, 'POST Parameter missing!');
+		if(!$bikeId) $app->halt(400, 'Parameter missing!');
 		
-		$postQuery = "INSERT INTO bookings (bike, account) VALUES ($bikeId, 1)";
+		$postQuery = "INSERT INTO bookings (bike, account, date) VALUES ($bikeId, 1, now())";
 		
 		$id = addAndGetIdFromDb($postQuery, $app);
+		
+		$putQuery = "UPDATE bikes SET isUsed = 1 WHERE id = $bikeId";
+		updateDb($putQuery, $app);
 	                
 	    $query = "SELECT id, bike, date FROM bookings WHERE id = $id";
 	    echo getJsonObjectFromDb($query, $app);
 	    $app->response()->status(201);
 	});
+
+
 	
-	
+
+/*	
 	$app->put('/bookings/:bookingId', function($id) use($app, $userId) {
 		$bikeId = $app->request()->params('bikeId');
 		
@@ -157,6 +191,7 @@ if (!$server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
 	    $query = "SELECT id, bike, date FROM bookings WHERE id = $id";
 	    echo getJsonObjectFromDb($query, $app);
 	});
+*/	
 	
 	
 	$app->delete('/bookings/:bookingId', function($id) use($app, $userId) {
@@ -184,6 +219,16 @@ function getJsonObjectFromDb($query, $app){
     return json_encode($object);    
 }
 
+function getObjectFromDb($query, $app){
+	$dbcon = getConnection();
+    $stmt = $dbcon->query($query);
+    $object = $stmt->fetchObject();   
+    $dbcon = null;
+    
+    if(!$object) $app->halt(404);
+    return $object;    
+}
+
 //Connects to db and returns an array of results for the given query
 function getJsonObjectsFromDb($query, $app){
 	$dbcon = getConnection();
@@ -208,9 +253,22 @@ function addAndGetIdFromDb($query, $app){
 
 //Connects to db and updates row
 function updateDb($query, $app){
+	try {
+	    $dbcon = getConnection();
+		$stmt = $dbcon->query($query);
+	}
+	catch(Exception $e) {
+	    //echo 'Exception -> ';
+	    //var_dump($e->getMessage());
+	    $app->response()->status(500);
+	}
+
+/*
 	$dbcon = getConnection();
     $stmt = $dbcon->query($query);
     $dbcon = null;
+*/    
+	$app->response()->status(204);
 }
 
 //Connects to db and delets a row

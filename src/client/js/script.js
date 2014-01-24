@@ -3,6 +3,7 @@ var baseURL = '/BikeSharing/src/';
 
 window.onload = function() {    
 }
+
 function showStation(id) { $.ajax({
 	    dataType: 'json',
 	    success: function(data) {
@@ -19,7 +20,7 @@ function showStation(id) { $.ajax({
 	        $('#picture').append(picture);
 	        
 	        //map
-	        addMarker(station.longitude, station.latitude, station.nam);
+	        addMarker(station.longitude, station.latitude, station.name);
 	        
 	        //bikes
 	        showBikesForStation(id);
@@ -36,6 +37,7 @@ function showBikesForStation(id) {
 	        
 	        for(var i = 0; i < data.length; i++){
 		        var bike = data[i];
+		        
 		        var bikeDiv = $('<div>').attr("class", 'container bike');
 		        
 		         //bike id
@@ -46,6 +48,12 @@ function showBikesForStation(id) {
 		        var bookingIcon = $('<img>').attr("src", 'img/ic_booking.png');
 		        var bookingPrice = $('<p>').attr("class", 'price').append(bike.price/100 + ' € / h');
 		        bookingDiv.append(bookingIcon).append(bookingPrice);
+		        
+		        bookingDiv.bind('click', { id: bike.id}, function(event) {
+					var data = event.data;
+					window.location.href = baseURL + "client/doBooking.php?bikeid=" + data.id;
+					//doBooking(data.id);
+				});
 		         
 		        bikeDiv.append(bookingDiv);
 		        bikeDiv.append(bikeId);
@@ -84,7 +92,7 @@ function showStations() {
 		        
 		        stationDiv.bind('click', { id: station.id}, function(event) {
 					var data = event.data;
-					window.location.href = baseURL + "station.php?station=" + data.id;
+					window.location.href = baseURL + "client/station.php?station=" + data.id;
 				});
 						         
 		        $('#stations').append(stationDiv);

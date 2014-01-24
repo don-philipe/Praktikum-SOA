@@ -5,6 +5,9 @@ include_once('head.php');
 <body>
 <?php
 include_once('header.php');
+
+$bookingUrl = "http://localhost/BikeSharing/src/api/bookings";
+$bookingsJson = doRequest($bookingUrl, $_SESSION['$access_code'], "");
 ?>
 	<section>
 	
@@ -25,10 +28,38 @@ include_once('header.php');
 			
 			<div class="container" id="bookings">
 				<h4>Buchungen:</h4>
+				<ul>
 				<?php
-					$url = "http://localhost/BikeSharing/src/api/bookings";
-					echo doRequest($url, $_SESSION['$access_code'], "");
+					
+					$bookings = json_decode($bookingsJson, true);
+					//print_r($book);
+					for($count = 1; $count < count($bookings); $count++){
+						$booking = $bookings[$count];
+						
+						$costs = $booking[costs];
+						if($costs) $costs = ($costs / 100).'€';
+						
+						?>
+						<li class="booking">
+							<div class="id"><?php echo($booking[id]); ?></div>
+							<div class="bikeId"><?php echo($booking[bike]); ?></div>
+							<div class="booked"><?php echo($booking[date]); ?></div>
+							<div class="released"><?php echo($booking[released]); ?></div>
+							<div class="price"><?php echo($costs); ?></div>
+						</li>
+						<?php
+						//echo($booking[id]);
+					}
+					
+					/*
+					foreach ($book-> as $booking )
+					{
+					    echo "{$booking->id}\n";
+					}
+					*/
+					
 				?>
+				</ul>
 			</div>
 			
 			<button onclick="location.href='logout.php'">Logout</button>

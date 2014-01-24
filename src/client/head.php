@@ -69,6 +69,37 @@ function doRequest($url, $token, $params){
 	return $result;
 }
 
+function doPostRequest($url, $token, $params){
+/*
+	$fields = array(
+            'access_token'  => $token,
+	);
+	*/
+	$params['access_token'] = $token;
+	
+	foreach($params as $key=>$value) { $params_string .= $key.'='.$value.'&'; }
+	rtrim($params_string, '&');
+	
+	//$url .= '?' . http_build_query($fields);
+	
+	//open connection
+	$ch = curl_init();
+	
+	//set the url, number of POST vars, POST data
+	curl_setopt($ch,CURLOPT_URL, $url);
+	curl_setopt($ch,CURLOPT_POST, count($params));
+	curl_setopt($ch,CURLOPT_POSTFIELDS, $params_string);
+	curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);  
+	
+	//execute post
+	$result = curl_exec($ch);
+	
+	//close connection
+	curl_close($ch);
+
+	return $result;
+}
+
 ?>
 
 <!DOCTYPE HTML>
