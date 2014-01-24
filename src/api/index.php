@@ -108,26 +108,16 @@ $app->get('/stations/:stationId', function ($id) use ($app) {
 		
 		$date1 = strtotime($bikeBooked);
 		$date2 = time();
-		//$mins = ($date2 - $date1) / 60;
-		//$costs = $mins * $bikePrice;
-		//echo($mins);
-		
-		//print_r($date1);
-		
+
 		$timeSlots = ceil((abs($date2 - $date1) / 60) / 15);
 		$costs = $timeSlots * $bikePrice;
 		echo $costs;
-		
-		
-		//echo . " minute";
-
 
 		$bikeQuery = "UPDATE bikes SET isUsed = 0 WHERE id = $bikeId";
 		updateDb($bikeQuery, $app);
 
 		$bookingQuery = "UPDATE bookings SET released = now(), costs = $costs WHERE id = $id";
 		updateDb($bookingQuery, $app);
-		
 	});
 
 
