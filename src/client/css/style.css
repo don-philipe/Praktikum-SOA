@@ -168,9 +168,9 @@ section:last-child{
     -moz-animation-fill-mode:forwards;
     animation-fill-mode:forwards;
  
-    -webkit-animation-duration:1s;
-    -moz-animation-duration:1s;
-    animation-duration:1s;
+    -webkit-animation-duration:0.5s;
+    -moz-animation-duration:0.5s;
+    animation-duration:0.5s;
 }
 
 .container:hover{
@@ -463,6 +463,9 @@ section:last-child{
 
 
 /* profile */
+#profile{
+	position: relative;
+}
 
 #profile #personal, #profile #payment{
 	width: 359px;
@@ -484,6 +487,17 @@ section:last-child{
 	margin-top: 9px;
 }
 
+#profile #logout{
+	background-color: #024964;
+	color: white;
+	width: 150px;
+	height: 30px;
+	position: absolute;
+	right: 0;
+	top: 25px;
+	border: 1px solid #f2f2f2;
+}
+
 
 /* bookings */
 #bookings li{
@@ -493,6 +507,15 @@ section:last-child{
 #bookings ul{
 	padding: 0;
 	margin: 0;
+}
+
+#bookings .booking{
+	width: 100%;
+	border-bottom: 1px solid #f2f2f2;
+}
+
+#bookings .booking:last-child{
+	border-bottom: none;
 }
 
 #bookings .booking div{
@@ -515,6 +538,22 @@ section:last-child{
 #bookings .booking div.released{
 	width: 200px;
 }
+
+#bookings .booking div.price{
+	width: 75px;
+}
+
+
+#bookings .booking div.delete{
+	padding-right: 15px;
+	float: right;
+}
+
+#bookings .booking div.delete img{
+	width: 14px;
+	height: 14px;
+}
+
 
 
 /* map */

@@ -280,7 +280,7 @@ class Server implements ResourceControllerInterface,
     {
         $this->response = is_null($response) ? new Response() : $response;
         $value = $this->getResourceController()->getAccessTokenData($request, $this->response);
-
+		//print_r($request);
         return $value;
     }
 

@@ -8,12 +8,11 @@ include_once('header.php')
 
 <?php
 
-$bikeId = $_GET['bikeid'];
+$bookingId = $_GET['bookingid'];
 
 $params = array(
-	'bikeId'  => $bikeId,
 );
-$url = $GLOBALS["api_url"]."bookings";
+$url = $GLOBALS["api_url"]."bookings/".$bookingId;
 
 
 ?>
@@ -22,7 +21,7 @@ $url = $GLOBALS["api_url"]."bookings";
 		<h2>Buchung</h2>
 		<article class="container" id='booking'>
 			<?php
-				echo doPostRequest($url, $_SESSION['$access_code'], $params);
+				echo doDeleteRequest($url, $_SESSION['$access_code'], $params);
 			?>
 		</article>
 		

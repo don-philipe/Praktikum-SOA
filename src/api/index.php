@@ -135,7 +135,6 @@ if (!$server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
 }else{
 	$token = $server->getAccessTokenData(OAuth2\Request::createFromGlobals());
 	$userId = $token['user_id'];
-
 	
 	$app->get('/account', function () use ($app, $userId) {
 		$query = "SELECT id, email, login FROM accounts WHERE id = $userId";
@@ -185,8 +184,11 @@ if (!$server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
 	
 	
 	$app->delete('/bookings/:bookingId', function($id) use($app, $userId) {
+		echo("delete");
+	/*
 		$query = "DELETE FROM bookings WHERE id = $id";
 		deleteRowInDb($query, $app);
+		*/
 	});	
 	
 }

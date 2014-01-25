@@ -222,6 +222,10 @@ function login(login, passwd) {
 	});
 }
 
+function cancelBooking(bookingId){
+	window.location.href = baseURL + "client/cancelBooking.php?bookingid=" + bookingId;
+}
+
 ///////////////////////
 // functions for map //
 ///////////////////////

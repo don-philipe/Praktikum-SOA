@@ -61,7 +61,7 @@ class ResourceController implements ResourceControllerInterface
                     $response->getParameter('error_description')
                 )
             ));
-
+			
             return false;
         }
 
