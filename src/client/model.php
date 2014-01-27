@@ -13,7 +13,9 @@ include_once('header.php')
 	<section>
 	
 		<article id='model'>
-			<h2>Modell</h2>
+			<h2 id="sectionHeadline">Model</h2>
+			<div class="container" id="description"></div>
+			<div class="container" id="picture"></div>
 		</article>
 		
 	</section>

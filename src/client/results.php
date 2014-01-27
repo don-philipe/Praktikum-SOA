@@ -7,7 +7,7 @@ include_once('header.php')
 ?>
 
 	<script type="text/javascript">
-		showResults(get_url_param('location'), get_url_param('radius'));
+		showResults(get_url_param('plz'), get_url_param('Ort'), get_url_param('street'), get_url_param('number'), get_url_param('radius'), get_url_param('stationId'));
 	</script>
 			
 	<section>

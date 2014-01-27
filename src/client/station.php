@@ -1,14 +1,10 @@
 <?php
 include_once('head.php')
 ?>
-<body  onload="initSmallMap()">
+<body  onload="initSmallMap(); showStation(get_url_param('station'));">
 <?php
 include_once('header.php')
 ?>
-
-	<script type="text/javascript">
-		showStation(get_url_param('station'));
-	</script>
 			
 	<section>
 	

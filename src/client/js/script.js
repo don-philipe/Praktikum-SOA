@@ -1,4 +1,4 @@
-var baseURL = '/BikeSharing/src/';
+var baseURL = '../';
 //var baseURL = '/';
 
 window.onload = function() {    
@@ -20,7 +20,7 @@ function showStation(id) { $.ajax({
 	        $('#picture').append(picture);
 	        
 	        //map
-	        addMarker(station.longitude, station.latitude, station.name);
+	        addMarker(station.longitude, station.latitude, station.name, true);
 	        
 	        //bikes
 	        showBikesForStation(id);
@@ -46,7 +46,7 @@ function showBikesForStation(id) {
 		        //booking
 		        var bookingDiv = $('<div>').attr("class", 'booking');
 		        var bookingIcon = $('<img>').attr("src", 'img/ic_booking.png');
-		        var bookingPrice = $('<p>').attr("class", 'price').append(bike.price/100 + ' € / h');
+		        var bookingPrice = $('<p>').attr("class", 'price').append(bike.price/100 + ' € / 15min');
 		        bookingDiv.append(bookingIcon).append(bookingPrice);
 		        
 		        bookingDiv.bind('click', { id: bike.id}, function(event) {
@@ -97,7 +97,7 @@ function showStations() {
 						         
 		        $('#stations').append(stationDiv);
 		        
-			addMarker(station.longitude, station.latitude, station.name);
+			addMarker(station.longitude, station.latitude, station.name, false);
 	        }
 	    },
 	    url: baseURL + 'api/stations'
@@ -132,7 +132,7 @@ function showModels() {
 		        
 		        modelDiv.bind('click', { id: model.id}, function(event) {
 					var data = event.data;
-					window.location.href = baseURL + "model.php?model=" + data.id;
+					window.location.href = baseURL + "client/model.php?model=" + data.id;
 				});
 						         
 		        $('#models').append(modelDiv);
@@ -146,31 +146,28 @@ function showModel(id) {
 	$.ajax({
 	    dataType: 'json',
 	    success: function(data) {
-	        var station = data;
-	        var stationDiv = $('<div>').attr("class", 'station');
+	        var model = data;
+	        $('#sectionHeadline').text(model.name);
 	        
-	        var picture = $('<img>').attr("scr", station.picture);
-	        var name = $('<p>').attr("class", 'name').append(station.name);
-	        var description = $('<p>').attr("class", 'description').append(station.description);
-	         
-	        stationDiv.append(picture);
-	        stationDiv.append(name);
-	        stationDiv.append(description);
-	       
-	        $('#model').append(stationDiv);
+	        //description
+	        var description = $('<p>').attr("class", 'description').append(model.description);
+	        $('#description').append(description);
+	        
+	        //picture
+	        var picture = $('<img>').attr("src", model.picture);
+	        $('#picture').append(picture);
 	    },
 	    url: baseURL + 'api/models/' + id
 	});
 }
 
-function showResults(location, radius) {
+function showResults(postcode, place, street, housenumber, radius, stationId) {
 	$.ajax({
 	    dataType: 'json',
 	    success: function(data) {
 	        for(var i in data){
 		        
 		        var station = data[i];
-		        //alert();
 		        
 		        var stationDiv = $('<div>').attr("class", 'bikes');
 		        
@@ -188,7 +185,7 @@ function showResults(location, radius) {
 		        $('#results').append(stationDiv);
 	        }
 	    },
-	    url: baseURL + 'api/bikes?location=' + location + '&radius=' + radius
+	    url: baseURL + 'api/bikes?postcode=' + postcode + '&place=' + place + '&street' + street + '&housenumber' + housenumber + '&radius=' + radius + '&stationId' + stationId
 	});
 }
 
@@ -270,8 +267,9 @@ function initSmallMap()
  * lon: longitude of marker
  * lat: latitude of marker
  * text: text for popup
+ * center: boolean - should the map be centered at this marker?
  */
-function addMarker(lon, lat, text)
+function addMarker(lon, lat, text, center)
 {
 	var size = new OpenLayers.Size(21,25);
 	var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
@@ -294,4 +292,7 @@ function addMarker(lon, lat, text)
 			map.removePopup(this);
 		}
 	);
+
+	if(center)
+		map.setCenter(lonlat, 14);
 }
