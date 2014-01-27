@@ -18,25 +18,38 @@ $app->get('/bikes', function () use ($app) {
 	//additional parameters
 	$stationId = $app->request()->get('stationId');
 	$modelId = $app->request()->get('modelId');
-	$location = $app->request()->get('location'); 
-	$radius = $app->request()->get('radius'); 
+	#$location = $app->request()->get('location'); 
+	$postcode = $app->request()->get('postcode');
+	$place = $app->request()->get('place');
+	$street = $app->request()->get('street');
+	$housenumber = $app->request()->get('housenumber');
+	$location = $street.$housenumber.$postcode.$place;
+	$radius = $app->request()->get('radius');
+	$stationId = $app->request()->get('stationId');
 	if($radius == '') $radius = 2500;
-	if($location == '') $app->halt(400, 'Parameter missing!');
+	if($stationId != '')
+	{
+		$query = "SELECT id, model, price, longitude, latitude, station FROM bikes WHERE station = $stationId";
+	}
+	else
+	{
+		if($location == '') $app->halt(400, 'Parameter missing!');
+		
+		$coordinates = getCoordinates($location);
+		$lat = $coordinates->lat;
+		$lng = $coordinates->lng;
+		$query = "SELECT id, model, price, longitude, latitude, station, ROUND(6371000 * 2 * ASIN ( SQRT (POWER(SIN((latitude - $lat)*pi()/180 / 2),2) + COS(latitude * pi()/180) * COS($lat *pi()/180) * POWER(SIN((longitude - $lng) *pi()/180 / 2), 2) ) ) , 0) AS distance FROM bikes";
+		
+		//if additional parameters are existing, add to query
+		$where = array();
+		if ($stationId != '') $where[] = "station = $stationId";
+		if ($modelId != '') $where[] = "model = $modelId";
+		$where[] = "isUsed = '0'";
+		if (count($where) > 0) $query .= ' WHERE '.implode(' AND ', $where);
+		//limit bikes to selected distance
+		$query .=  " HAVING distance < $radius ORDER BY distance";
+	}
 	
-	$coordinates = getCoordinates($location);
-	$lat = $coordinates->lat;
-	$lng = $coordinates->lng;
-	$query = "SELECT id, model, price, longitude, latitude, station, ROUND(6371000 * 2 * ASIN ( SQRT (POWER(SIN((latitude - $lat)*pi()/180 / 2),2) + COS(latitude * pi()/180) * COS($lat *pi()/180) * POWER(SIN((longitude - $lng) *pi()/180 / 2), 2) ) ) , 0) AS distance FROM bikes";
-	
-	//if additional parameters are existing, add to query
-	$where = array();
-	if ($stationId != '') $where[] = "station = $stationId";
-	if ($modelId != '') $where[] = "model = $modelId";
-	$where[] = "isUsed = '0'";
-	if (count($where) > 0) $query .= ' WHERE '.implode(' AND ', $where);
-	
-	//limit bikes to selected distance
-	$query .=  " HAVING distance < $radius ORDER BY distance";
     
     echo getJsonObjectsFromDb($query, $app);  
 });
@@ -142,7 +155,7 @@ if (!$server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
 	});
 
 	$app->get('/bookings', function () use ($app, $userId) {
-		$query = "SELECT id, bike, date, released, costs FROM bookings WHERE account = $userId";
+		$query = "SELECT id, bike, date, released, costs FROM bookings WHERE account = $userId  ORDER BY id DESC";
 	    echo getJsonObjectsFromDb($query, $app);
 	});
 

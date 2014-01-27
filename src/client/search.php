@@ -34,16 +34,24 @@ include_once('header.php')
 						<th>Umkreis in Metern:</th>
 						<th><input type="number" name="radius" value="" placeholder="Umkreis" /></th> 
 					</tr>
+					
 					<tr>
 						<th>Station:</th>
 						<th>
-							<select>
-								<option>wähle eine Station</option>
-								<option>Station1</option>
-								<option>Station1</option>
-								<option>Station1</option>
-						     	<option>Station1</option>
-							 	<option>Station1</option>
+							<select name="stationId">
+								<option value="">wähle eine Station</option>
+								<?php
+									$url = $GLOBALS["api_url"]."stations";
+									$response = file_get_contents($url);
+									$stations = json_decode($response);
+									for($count = 0; $count < count($stations); $count++){
+										$station = $stations[$count];
+										?>
+										<option value="<?php echo($station->id); ?>"><?php echo($station->name); ?></option>
+										<?php
+									}
+								?>
+								
 							</select>
 						</th> 
 					</tr>
@@ -57,6 +65,7 @@ include_once('header.php')
 					</tr>
 				</table>
 			</form>
+			
 		</article>
 		
 	</section>
