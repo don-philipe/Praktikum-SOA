@@ -1,0 +1,71 @@
+Liefert eine Liste aller verfügbaren Stationen zurück an denen Fahrräder
+zum Verleih zur Verfügung stehen.
+
+\begin{longtable}[c]{@{}lll@{}}
+\toprule\addlinespace
+Method & URL & Access
+\\\addlinespace
+\midrule\endhead
+GET & /stations & public
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsubsection{Parameter}\label{parameter}
+
+\begin{longtable}[c]{@{}lll@{}}
+\toprule\addlinespace
+Name & Required & Description
+\\\addlinespace
+\midrule\endhead
+location & nein & Standort an dem nach Stationen gesucht werden soll,
+z.B. ``Dresden'' oder ``Berlin''
+\\\addlinespace
+model & nein & ID eines bestimmten Fahrradmodells nach dem gefiltert
+werden soll, z.B. 105 oder 185
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsubsection{Request Example}\label{request-example}
+
+\begin{verbatim}
+GET /stations?location=Dresden&model=105
+\end{verbatim}
+
+\subsubsection{Response}\label{response}
+
+Liefert eine Liste von verfügbaren Stationen zurück, jede Station
+besteht aus den folgenden Parametern: * stationId - Die einzigartige
+Kennung der Station * name - Der Name der Station * longitude -
+Längengrad * latitude - Breitengrad * bikes - Die Anzahl an zum Verleih
+zur Verfügung stehenden Fahrräder in der Station * description - Die
+ausführliche Beschreibung der Station * pictureUrl - Die URL eines Fotos
+von der Station
+
+\subsubsection{Response Examples}\label{response-examples}
+
+\begin{verbatim}
+{
+   "stations" : [
+      {
+         "stationId" : 64,
+         "name" : "Hauptbahnhof",
+         "longitude" : -33.8670522,
+         "latitude" : 151.1957362,
+         "bikes" : 78,
+         "description" : "Tolle Station am Hauptbahnhof, direkt vor dem Ausgang.",
+         "pictureUrl" : "www.test.de/station64.jpg"
+      },
+      {
+         "stationId" : 82,
+         "name" : "Zoo",
+         "longitude" : -33.8670522,
+         "latitude" : 151.1957362,
+         "bikes" : 108,
+         "description" : "Eine Station direkt am Zoo.",
+         "pictureUrl" : "www.test.de/station82.jpg"
+      }
+   ]
+}
+\end{verbatim}

@@ -1,0 +1,39 @@
+Gibt es einzelnes Fahrrad mit der Kennung \emph{bikeId} zurück.
+
+\begin{longtable}[c]{@{}lll@{}}
+\toprule\addlinespace
+Method & URL & Access
+\\\addlinespace
+\midrule\endhead
+GET & /bikes/bikeId & public
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsubsection{Request Example}\label{request-example}
+
+\begin{verbatim}
+GET /bikes/168
+\end{verbatim}
+
+\subsubsection{Response}\label{response}
+
+Gibt es einzelnes Fahrrad zurück, das Fahrrad besteht aus den folgenden
+Parametern: * bikeId - Die einzigartige Kennung des Fahrrads * modelId -
+Die einzigartige Kennung des Fahrradmodells * price - Der Preis für 15
+Minuten in Cent. * longitude - Längengrad * latitude - Breitengrad *
+stationId - Falls das Fahrrad in einer Verleihstation steht, ist dies
+die eindeutige Kennung der Station
+
+\subsubsection{Response Examples}\label{response-examples}
+
+\begin{verbatim}
+{
+   "bikeId" : 168,
+   "modelId" : 105,
+   "price" : 100,
+   "longitude" : -33.8670522,
+   "latitude" : 151.1957362,
+   "stationId" : 4 
+}
+\end{verbatim}

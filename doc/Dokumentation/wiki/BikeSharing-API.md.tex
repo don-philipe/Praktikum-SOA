@@ -1,0 +1,42 @@
+\subsection{Endpoints}\label{endpoints}
+
+\begin{longtable}[c]{@{}llll@{}}
+\toprule\addlinespace
+Name & Method & URL & Access
+\\\addlinespace
+\midrule\endhead
+\href{Get\%20stations}{Alle verfügbaren Fahrradstationen} & GET &
+/stations & public
+\\\addlinespace
+\href{Get\%20station}{Spezielle Station} & GET & /stations/stationId &
+public
+\\\addlinespace
+\href{Get\%20bikes}{Alle verfügbaren Fahrräder} & GET & /bikes & public
+\\\addlinespace
+\href{Get\%20bike}{Spezielles Fahrrad} & GET & /bikes/bikeId & public
+\\\addlinespace
+\href{Get\%20bike\%20models}{Alle Fahrradmodelle} & GET & /models &
+public
+\\\addlinespace
+\href{Get\%20bike\%20model}{Spezielles Fahrradmodell} & GET &
+/models/modelId & public
+\\\addlinespace
+\href{Get\%20bookings}{Alle Buchungen} & GET & /bookings & protected
+\\\addlinespace
+\href{Create\%20booking}{Buchung erstellen} & POST & /bookings &
+protected
+\\\addlinespace
+\href{Get\%20booking}{Einzelne Buchung} & GET & /bookings/bookingId &
+protected
+\\\addlinespace
+\href{Delete\%20booking}{Einzelne Buchung stornieren} & DELETE &
+/bookings/bookingId & protected
+\\\addlinespace
+\href{Edit\%20booking}{Einzelne Buchung bearbeiten} & PUT &
+/bookings/bookingId & protected
+\\\addlinespace
+\href{Get\%20account\%20informations}{Accountinformationen} & GET &
+/account & protected
+\\\addlinespace
+\bottomrule
+\end{longtable}

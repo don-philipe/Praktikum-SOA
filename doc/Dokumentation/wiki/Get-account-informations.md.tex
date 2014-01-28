@@ -1,0 +1,32 @@
+Liefert die Accountinformationen des Nutzers.
+
+\begin{longtable}[c]{@{}lll@{}}
+\toprule\addlinespace
+Method & URL & Access
+\\\addlinespace
+\midrule\endhead
+GET & /account & protected
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsubsection{Request Example}\label{request-example}
+
+\begin{verbatim}
+GET /account
+\end{verbatim}
+
+\subsubsection{Response}\label{response}
+
+Liefert die Accountinformationen des Nutzers, ein Account besteht aus
+den folgenden Parametern: * accountId - Die einzigartige Kennung des
+Nutzers * email - Die E-Mail Adresse des Nutzers
+
+\subsubsection{Response Examples}\label{response-examples}
+
+\begin{verbatim}
+{
+   "accountId" : 1696,
+   "email" : "test@test.com"
+}
+\end{verbatim}

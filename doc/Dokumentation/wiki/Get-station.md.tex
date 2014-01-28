@@ -1,0 +1,40 @@
+Gibt eine einzelne Station mit der Kennung \emph{stationId} zurück.
+
+\begin{longtable}[c]{@{}lll@{}}
+\toprule\addlinespace
+Method & URL & Access
+\\\addlinespace
+\midrule\endhead
+GET & /stations/stationId & public
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsubsection{Request Example}\label{request-example}
+
+\begin{verbatim}
+GET /stations/4
+\end{verbatim}
+
+\subsubsection{Response}\label{response}
+
+Gibt eine einzelne Station zurück, die Station besteht aus den folgenden
+Parametern: * stationId - Die einzigartige Kennung der Station * name -
+Der Name der Station * longitude - Längengrad * latitude - Breitengrad *
+bikes - Die Anzahl an zum Verleih zur Verfügung stehenden Fahrräder in
+der Station * description - Die ausführliche Beschreibung der Station *
+pictureUrl - Die URL eines Fotos von der Station
+
+\subsubsection{Response Examples}\label{response-examples}
+
+\begin{verbatim}
+{
+   "stationId" : 4,
+   "name" : "Hauptbahnhof",
+   "longitude" : -33.8670522,
+   "latitude" : 151.1957362,
+   "bikes" : 78,
+   "description" : "Tolle Station am Hauptbahnhof, direkt vor dem Ausgang.",
+   "pictureUrl" : "www.test.de/station4.jpg"
+}
+\end{verbatim}

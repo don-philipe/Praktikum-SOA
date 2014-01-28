@@ -1,0 +1,38 @@
+Liefert ein einzelnes Fahrradmodell.
+
+\begin{longtable}[c]{@{}lll@{}}
+\toprule\addlinespace
+Method & URL & Access
+\\\addlinespace
+\midrule\endhead
+GET & /models/modelId & public
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsubsection{Request Example}\label{request-example}
+
+\begin{verbatim}
+GET /models/105
+\end{verbatim}
+
+\subsubsection{Response}\label{response}
+
+Liefert ein einzelnes Fahrradmodell, das Modell besteht aus den
+folgenden Parametern: * modelId - Die einzigartige Kennung des
+Fahrradmodells * name - Der Name des Fahrradmodells * description - Eine
+Beschreibung des Modells * pictureUrl - Die URL eines Fotos, welches das
+Fahrradmodell zeigt * bikes - Die Anzahl an zum Verleih zur Verfügung
+stehenden Fahrräder dieses Modells
+
+\subsubsection{Response Examples}\label{response-examples}
+
+\begin{verbatim}
+{
+   "modelId" : 105,
+   "name" : "Rennrad",
+   "description" : "Bestens geeignet für das Fahren auf dem Asphalt.",
+   "pictureUrl" : "www.test.de/model105",
+   "bikes" : 78
+}
+\end{verbatim}

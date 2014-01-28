@@ -1,0 +1,49 @@
+Erstellt eine einzelne Buchung.
+
+\begin{longtable}[c]{@{}lll@{}}
+\toprule\addlinespace
+Method & URL & Access
+\\\addlinespace
+\midrule\endhead
+POST & /bookings & protected
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsubsection{Request Example}\label{request-example}
+
+\begin{verbatim}
+POST /bookings
+Params: {
+   "bikeId": 168
+}
+\end{verbatim}
+
+\subsubsection{Parameter}\label{parameter}
+
+\begin{longtable}[c]{@{}lll@{}}
+\toprule\addlinespace
+Name & Required & Description
+\\\addlinespace
+\midrule\endhead
+bikeId & ja & Die einzigartige Kennung des Fahrrads, z.B. 168
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsubsection{Response}\label{response}
+
+Liefert eine einzelne getätigte Buchung, die Buchung besteht aus den
+folgenden Parametern: - bookingId - Die einzigartige Kennung der Buchung
+- bikeId - Die einzigartige Kennung des gebuchten Fahrrads - date - Der
+Zeitpunkt an dem die Buchung getätigt wurde
+
+\subsubsection{Response Examples}\label{response-examples}
+
+\begin{verbatim}
+{
+   "bookingId" : 1696,
+   "bikeId" : 168,
+   "date" : "2013-12-01 18:45:24"
+}
+\end{verbatim}

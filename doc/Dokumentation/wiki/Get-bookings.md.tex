@@ -1,0 +1,43 @@
+Liefert eine Liste aller getätigten Buchungen.
+
+\begin{longtable}[c]{@{}lll@{}}
+\toprule\addlinespace
+Method & URL & Access
+\\\addlinespace
+\midrule\endhead
+GET & /bookings & protected
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsubsection{Request Example}\label{request-example}
+
+\begin{verbatim}
+GET /bookings
+\end{verbatim}
+
+\subsubsection{Response}\label{response}
+
+Liefert eine Liste aller getätigten Buchungen, jede Buchung besteht aus
+den folgenden Parametern: * bookingId - Die einzigartige Kennung der
+Buchung * bikeId - Die einzigartige Kennung des gebuchten Fahrrads *
+date - Das Datum der Buchung
+
+\subsubsection{Response Examples}\label{response-examples}
+
+\begin{verbatim}
+{
+   "bookings" : [
+      {
+         "bookingId" : 1682,
+         "bikeId" : 105,
+         "date" : "2013-12-01 18:44:36"
+      },
+      {
+         "bookingId" : 1696,
+         "bikeId" : 168,
+         "date" : "2013-12-01 18:45:24"
+      }
+   ]
+}
+\end{verbatim}

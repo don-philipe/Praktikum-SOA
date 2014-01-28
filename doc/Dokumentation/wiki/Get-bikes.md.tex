@@ -1,0 +1,77 @@
+Liefert eine Liste aller verfügbaren Fahrräder die zum Verleih zur
+Verfügung stehen.
+
+\begin{longtable}[c]{@{}lll@{}}
+\toprule\addlinespace
+Method & URL & Access
+\\\addlinespace
+\midrule\endhead
+GET & /bikes & public
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsubsection{Parameter}\label{parameter}
+
+\begin{longtable}[c]{@{}lll@{}}
+\toprule\addlinespace
+Name & Required & Description
+\\\addlinespace
+\midrule\endhead
+location & ja & Standort an dem nach verfügbaren Fahrrädern gesucht
+werden soll, z.B. ``Dresden'' oder ``Berlin''
+\\\addlinespace
+radius & nein & Radius in dem um die location gesucht werden soll in
+Meter (default: 2500), z.B. 5000
+\\\addlinespace
+modelId & nein & Die eindeutige Kennung eines bestimmten Fahrradmodells
+nach dem gefiltert werden soll, z.B. 105 oder 185
+\\\addlinespace
+stationId & nein & Die eindeutige Kennung einer bestimmten
+Verleihstation nach der gefiltert werden soll, z.B. 46 oder 4
+\\\addlinespace
+\bottomrule
+\end{longtable}
+
+\subsubsection{Request Example}\label{request-example}
+
+\begin{verbatim}
+GET /bikes?location=Dresden&radius=5000&modelId=105&stationId=4
+\end{verbatim}
+
+\subsubsection{Response}\label{response}
+
+Liefert eine Liste von verfügbaren Fahrrädern, jedes Fahrrad besteht aus
+den folgenden Parametern: * bikeId - Die einzigartige Kennung des
+Fahrrads * modelId - Die einzigartige Kennung des Fahrradmodells * price
+- Der Preis für 15 Minuten in Cent. * longitude - Längengrad * latitude
+- Breitengrad * stationId - Falls das Fahrrad in einer Verleihstation
+steht, ist dies die eindeutige Kennung der Station * distance - Die
+Entfernung zum gewählten Standort
+
+\subsubsection{Response Examples}\label{response-examples}
+
+\begin{verbatim}
+{
+   "bikes" : [
+      {
+         "bikeId" : 46,
+         "modelId" : 105,
+         "price" : 100,
+         "longitude" : -33.8670522,
+         "latitude" : 151.1957362,
+         "stationId" : 4,
+         "distance": 2800
+      },
+      {
+         "bikeId" : 34,
+         "modelId" : 105,
+         "price" : 150,
+         "longitude" : -33.8670522,
+         "latitude" : 151.1957362,
+         "stationId" : 4 ,
+         "distance": 2800
+      }
+   ]
+}
+\end{verbatim}
