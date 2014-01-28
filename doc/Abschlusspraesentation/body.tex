@@ -7,7 +7,6 @@
 \begin{frame}
 	\frametitle*{Aufgabe}
 	\begin{itemize}
-		\item Szenario: Bikesharing
 		\item Erstellung eines REST-Webservices
 		\begin{itemize}
 			\item Implementierung in PHP mit Slim
@@ -15,6 +14,7 @@
 			\item Verschlüsslung durch HTTPS
 		\end{itemize}
 		\item Erstellung einer Webanwendung als Client
+		\item Szenario: Bikesharing
 	\end{itemize}
 \end{frame}
 
@@ -22,9 +22,12 @@
 \begin{frame}
 	\frametitle*{Vorgehen}
 	\begin{itemize}
+		\item public API implementiert
+		\item Client (Webanwendung) implementiert
 		\item OAuth2 Server implementiert
 		\item protected APIs implementiert
 		\item Client-Anwendung vervollständigt
+		\item Bugfixes
 	\end{itemize}
 \end{frame}
 
@@ -63,6 +66,21 @@
 	\end{tabularx}
 \end{frame}
 
+\section{Webclient}
+\begin{frame}
+	\frametitle*{Webclient}
+	\begin{itemize}
+		\item erst funktionabel, dann schön
+		\item Nutzung von Bibliotheken (jQuery, OpenLayers)
+		\item Gerüst mit PHP erstellt, Inhalt mit Javascript gefüllt
+		\item ansatzweise auch für mobile Endgeräte nutzbar
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[height=40mm]{pics/bikesharing_search.png}
+	\end{figure}
+\end{frame}
+
 \section{Implementierung des OAuth2-Servers}
 \begin{frame}
 	\frametitle*{Implementierung des OAuth2-Servers}
@@ -85,11 +103,12 @@
 \begin{frame}
 	\frametitle*{Fazit}
 	\begin{itemize}
+		\item Implementierung des Webclient nach Vorlage einer durchdachten API gut machbar
 		\item Das Slim-Framework war eine gute Wahl, da die Verwendung sehr einfach und fehlerfrei verlief
 		\begin{itemize}
 			\item OAuth-Middleware hat leider nicht funktioniert
 		\end{itemize}
-	\item Implementierung eines OAuth-Servers ist relativ kompliziert
+		\item Implementierung eines OAuth-Servers ist relativ kompliziert
 	\end{itemize}
 \end{frame}
 
@@ -99,6 +118,8 @@
 	\frametitle*{Quellen}
 	\begin{itemize}
 		\item \url{slimframework.com}
+		\item \url{jquery.com}
+		\item \url{openlayers.org}
 		\item \url{https://github.com/bshaffer/oauth2-server-php}
 	\end{itemize}
 	%\bibliography{../literatur}
