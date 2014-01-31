@@ -8,9 +8,18 @@ Der Webservice stellt die Vermietungsplattform für einen fiktiven Bikesharingdi
 \chapter{Installation}
 \section{Datenbank}
 Für die Installation der Datenbank müssen die mitgelieferten Dumps bikesharingservice.sql und bikesharingservice\_oauth.sql in eine MySQL Datenbank eingefügt werden.
+\begin{lstlisting}[caption={Datenbankimport}\label{lst:dbimport},captionpos=b] 
+mysql -u root -p -h localhost
+mysql> create database bikesharingservice;
+mysql> create database bikesharingservice_oauth;
+mysql> exit;
+mysql -u username -p -h localhost bikesharingservice < bikesharingservice.sql
+mysql -u username -p -h localhost bikesharingservice_oauth < 
+	bikesharingservice_oauth.sql
+\end{lstlisting}
 Anschließend muss die Datenbank gestartet werden.
-\section{Webservice und API}
 
+\section{Webservice und API}
 
 \chapter{Funktionen Webservice}
 
@@ -70,8 +79,9 @@ Anschließend muss die Datenbank gestartet werden.
 
 Der Webclient ist so konzipiert, dass prinzipiell auch mobile Endgeräte unterstützt werden.
 Er bietet alle Funktionen die im vorhergehenden Kapitel beschrieben sind.
+Dazu zählen eine Suche, sowohl nach Adressen, als auch nach Ausleihstationen, eine Übersicht über die verfügbaren Fahrradmodelle und über die Stationen an denen Fahrräder ausgeliehen werden können.
 
-\begin{figure}
+\begin{figure}[h]
         \centering
 	\includegraphics[height=80mm]{pics/bikesharing_search.png}
 \end{figure}
@@ -82,7 +92,7 @@ Er bietet alle Funktionen die im vorhergehenden Kapitel beschrieben sind.
 
 Das Architekturkonzept von OAuth2 wird durch folgendes Schema verdeutlicht.
 
-\begin{figure}
+\begin{figure}[h]
         \centering
 	\includegraphics[height=80mm]{pics/Architektur.png}
 \end{figure}
@@ -99,5 +109,5 @@ Die OAuth-Middleware hat leider nicht funktioniert, auch ist die Implementierung
 Der Aufwand ist, ja nach gewählter Aufgabe, recht hoch, insbesondere wenn man, wie in diesem Fall, Programmiersprachen wählt, die den Teammitgliedern gar nicht, oder nur rudimentär geläufig sind.
 Wir hatten uns ursprünglich für PHP entschieden, da wir eine neue Programmiersprache kennenlernen wollten.
 
-\chapter{Quellen}
+%\chapter{Quellen}
 
