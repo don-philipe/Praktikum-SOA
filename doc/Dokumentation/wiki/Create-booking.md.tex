@@ -15,7 +15,7 @@ POST & /bookings & protected
 \begin{verbatim}
 POST /bookings
 Params: {
-   "bikeId": 168
+   "id": 168
 }
 \end{verbatim}
 
@@ -26,7 +26,7 @@ Params: {
 Name & Required & Description
 \\\addlinespace
 \midrule\endhead
-bikeId & ja & Die einzigartige Kennung des Fahrrads, z.B. 168
+id & ja & Die einzigartige Kennung des Fahrrads, z.B. 168
 \\\addlinespace
 \bottomrule
 \end{longtable}
@@ -34,16 +34,19 @@ bikeId & ja & Die einzigartige Kennung des Fahrrads, z.B. 168
 \subsubsection{Response}\label{response}
 
 Liefert eine einzelne getätigte Buchung, die Buchung besteht aus den
-folgenden Parametern: - bookingId - Die einzigartige Kennung der Buchung
-- bikeId - Die einzigartige Kennung des gebuchten Fahrrads - date - Der
-Zeitpunkt an dem die Buchung getätigt wurde
+folgenden Parametern: - 
+\begin{itemize}
+\item id - Die einzigartige Kennung der Buchung
+\item bikeId - Die einzigartige Kennung des gebuchten Fahrrads
+\item date - Der Zeitpunkt der Buchung
+\end{itemize}
 
 \subsubsection{Response Examples}\label{response-examples}
 
 \begin{verbatim}
 {
-   "bookingId" : 1696,
-   "bikeId" : 168,
-   "date" : "2013-12-01 18:45:24"
+   	"bookingId" : 1696,
+   	"bikeId" : 168,
+   	"date" : "2013-12-01 18:45:24"
 }
 \end{verbatim}

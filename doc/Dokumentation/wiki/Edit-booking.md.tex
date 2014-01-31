@@ -36,16 +36,23 @@ bikeId & nein & Die einzigartige Kennung des Fahrrads, z.B. 168
 \subsubsection{Response}\label{response}
 
 Liefert die geänderte Buchung, die Buchung besteht aus den folgenden
-Parametern: - bookingId - Die einzigartige Kennung der Buchung - bikeId
-- Die einzigartige Kennung des gebuchten Fahrrads - date - Der Zeitpunkt
-an dem die Buchung getätigt wurde
+Parametern: 
+\begin{itemize}
+\item id - Die einzigartige Kennung der Buchung
+\item bikeId - Die einzigartige Kennung des gebuchten Fahrrads
+\item date - Der Zeitpunkt der Buchung
+\item released - Der Zeitpunkt der Rückgabe des Fahrrads, falls schon zurückgegeben
+\item costs - Die entstandenen Kosten, falls schon zurückgegeben
+\end{itemize}
 
 \subsubsection{Response Examples}\label{response-examples}
 
 \begin{verbatim}
 {
-   "bookingId" : 1696,
-   "bikeId" : 168,
-   "date" : "2013-12-01 18:45:24"
+    	 "bookingId" : 1696,
+    	 "bikeId" : 168,
+    	 "date" : "2013-12-01 18:45:24",
+    	 "released" : "2013-12-01 19:35:20",
+    	 "costs" : "250"
 }
 \end{verbatim}

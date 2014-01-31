@@ -35,37 +35,37 @@ GET /stations?location=Dresden&model=105
 
 \subsubsection{Response}\label{response}
 
-Liefert eine Liste von verfügbaren Stationen zurück, jede Station
-besteht aus den folgenden Parametern: * stationId - Die einzigartige
-Kennung der Station * name - Der Name der Station * longitude -
-Längengrad * latitude - Breitengrad * bikes - Die Anzahl an zum Verleih
-zur Verfügung stehenden Fahrräder in der Station * description - Die
-ausführliche Beschreibung der Station * pictureUrl - Die URL eines Fotos
-von der Station
+Liefert eine Liste von verfügbaren Stationen zurück, jede Station besteht aus den folgenden Parametern: 
+\begin{itemize}
+\item id - Die einzigartige Kennung der Station
+\item name - Der Name der Station
+\item longitude - Längengrad
+\item latitude - Breitengrad
+\item bikes - Die Anzahl an zum Verleih zur Verfügung stehenden Fahrräder in der Station
+\item description - Die ausführliche Beschreibung der Station
+\item picture - Die URL eines Fotos von der Station
+\end{itemize}
+
 
 \subsubsection{Response Examples}\label{response-examples}
 
 \begin{verbatim}
 {
-   "stations" : [
-      {
-         "stationId" : 64,
+         "id" : 64,
          "name" : "Hauptbahnhof",
          "longitude" : -33.8670522,
          "latitude" : 151.1957362,
          "bikes" : 78,
          "description" : "Tolle Station am Hauptbahnhof, direkt vor dem Ausgang.",
-         "pictureUrl" : "www.test.de/station64.jpg"
-      },
-      {
-         "stationId" : 82,
+         "picture" : "www.test.de/station64.jpg"
+},
+{
+         "id" : 82,
          "name" : "Zoo",
          "longitude" : -33.8670522,
          "latitude" : 151.1957362,
          "bikes" : 108,
          "description" : "Eine Station direkt am Zoo.",
-         "pictureUrl" : "www.test.de/station82.jpg"
-      }
-   ]
+         "picture" : "www.test.de/station82.jpg"
 }
 \end{verbatim}
