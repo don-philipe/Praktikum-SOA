@@ -1,8 +1,16 @@
-\chapter{Einleitung und Aufgabe}
+\chapter{Aufgabe}
 
-Implementierung eines Webservice in PHP mit dem Slim Framework.
+Die Aufgabe bestand in einer Implementierung eines Webservices in PHP mit dem Slim Framework.
+Als Zusatzaufgabe sollte das Thema WS-Security durch Authentifizierung mittels OAuth2 und Verschlüsselung mittels HTTPS gelöst werden.
 
-Zusatzaufgabe WS-Security gelöst durch Authentifizierung mittels OAuth2 und Verschlüsselung mittels HTTPS.
+Der Webservice stellt die Vermietungsplattform für einen fiktiven Bikesharingdienst dar.
+
+\chapter{Installation}
+\section{Datenbank}
+Für die Installation der Datenbank müssen die mitgelieferten Dumps bikesharingservice.sql und bikesharingservice\_oauth.sql in eine MySQL Datenbank eingefügt werden.
+Anschließend muss die Datenbank gestartet werden.
+\section{Webservice und API}
+
 
 \chapter{Funktionen Webservice}
 
@@ -86,10 +94,10 @@ Das Architekturkonzept von OAuth2 wird durch folgendes Schema verdeutlicht.
 Die Implementierung des Webclient ist nach Vorlage einer durchdachten API gut machbar.
 
 Das Slim-Framework war eine gute Wahl, da die Verwendung sehr einfach und fehlerfrei verlief.
-Die OAuth-Middleware hat leider nicht funktioniert.
+Die OAuth-Middleware hat leider nicht funktioniert, auch ist die Implementierung eines OAuth-Servers relativ kompliziert.
 
-Implementierung eines OAuth-Servers ist relativ kompliziert.
-
+Der Aufwand ist, ja nach gewählter Aufgabe, recht hoch, insbesondere wenn man, wie in diesem Fall, Programmiersprachen wählt, die den Teammitgliedern gar nicht, oder nur rudimentär geläufig sind.
+Wir hatten uns ursprünglich für PHP entschieden, da wir eine neue Programmiersprache kennenlernen wollten.
 
 \chapter{Quellen}
 
