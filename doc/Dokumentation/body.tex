@@ -1,9 +1,15 @@
 \chapter{Aufgabe}
 
-Die Aufgabe bestand in einer Implementierung eines Webservices in PHP mit dem Slim Framework.
-Als Zusatzaufgabe sollte das Thema WS-Security durch Authentifizierung mittels OAuth2 und Verschlüsselung mittels HTTPS gelöst werden.
-
+Die Aufgabe bestand in einer Implementierung eines Webservices. Wir haben uns dabei für die Verwendung der Programmiersprache PHP entschieden. PHP hat den Vorteil, dass es auf nahezu jedem beliebigen Webserver ausführbar ist und relativ wenig Leistung benötigt. Dies wollen wir auch nach der Implementierung testen. Außerdem hatten wir uns für PHP entschieden, da wir gerne mal eine neue, uns eher unbekannte Programmiersprache kennenlernen wollten.
+Als Framework haben wir und für Slim entschieden, ein Framework was sich vollständig auf die REST-Funktionalität beschränkt, trotzdem aber durch sogenannte Middlewares erweiterbar ist.
+Als Zusatzaufgabe wollten wir uns mit dem Thema Sicherheit befassen. Dafür sollte eine Authentifizierung mittels OAuth2 implementiert werden und die Verschlüsselung durch HTTPS gelöst werden.
 Der Webservice stellt die Vermietungsplattform für einen fiktiven Bikesharingdienst dar.
+
+
+
+
+%Als Zusatzaufgabe sollte das Thema WS-Security durch Authentifizierung mittels OAuth2 und Verschlüsselung mittels HTTPS gelöst werden.
+
 
 \chapter{Installation}
 \section{Datenbank}
@@ -19,9 +25,14 @@ mysql -u username -p -h localhost bikesharingservice_oauth <
 \end{lstlisting}
 Anschließend muss die Datenbank gestartet werden.
 
-\section{Webservice und API}
+Alternativ können die Datenbanken auch über phpMyAdmin importiert werden.
 
-\chapter{Funktionen Webservice}
+\section{Webservice und OAuth-Server}
+Vorraussetzung für den Webservice und den OAuth-Server ist ein Webserver auf dem PHP und PDO installiert sind. In den beiden Dateien config.php und config\_oauth.php sind die Zugangsdaten für die Datenbank hinterlegt, diese müssen entsprechend angepasst werden. Anschließend kann der Order api einfach auf den Server kompiert werden. 
+\section{Webclient}
+Für den Webclient ist ebenfalls ein Server mit installiertem PHP nötig. Zusätzlich muss in der script.js die Variable baseURL durch die URL des Webservice ersetzt werden. In der head.php muss dies ebenfalls über die Variable \$api\_url geschehen. Durch die Variable \$oauth\_url wird zusätzlich der Link zum Authentifizierungsserver gesetzt.
+
+\chapter{Webservice Endpoints}
 
 \begin{tabularx}{\columnwidth}{|X|p{1.5cm}|X|p{1.5cm}|}
 	\hline
@@ -75,39 +86,78 @@ Anschließend muss die Datenbank gestartet werden.
 \subsection{bookings}
 \input{wiki/Edit-booking.md}
 
+\chapter{Webservice Implementierung}
+Im Folgenden soll grundlegend erläutert werden wie sich ein Webservice mit dem Slim-Framwork implementieren lässt. Jeder Request wird dabei wie folgt entgegengenommen:
+\begin{lstlisting}[caption={GET-Request mit Slim}\label{lst:slim},captionpos=b] 
+$app->get('/bikes/:bikeId', function ($id) use ($app) {
+   $query = "SELECT id, model, price, longitude, latitude, station 
+	FROM bikes WHERE id = $id";
+    echo getJsonObjectFromDb($query, $app); 
+});
+\end{lstlisting}
+In dem Beispiel wird durch das Wort get festgelegt, dass GET-Requests entgegengenommen werden soll, durch das Ersetzen mit post, put oder delete, würden entsprechend die Arten von Requests entgegengenommen werden. Anschließend wird die URL definiert, wobei der Doppelpunkt angibt, dass es sich um eine Variable handelt. In der Funktion wird die SQL-Query erstellt und die von uns erstellte Funktion getJsonObjectFromDb() aufgerufen. Diese fürhrt die Query mittels PDO aus und liefert das Ergebnis als JSON zurück. Die Umwandlung des Ergebnisses in JSON erfolgt durch die PHP-Funktion json\_encode().
+
+Auf die Art und Weise wurden alle Endpoints implementiert, zusätzliche Parameter lassen sich in der Funktion wie Folgt abrufen:
+\begin{lstlisting}[caption={Paramater mit Slim}\label{lst:slim_param},captionpos=b] 
+$app->request()->get('stationId');
+\end{lstlisting}
+
 \chapter{Webclient}
 
 Der Webclient ist so konzipiert, dass prinzipiell auch mobile Endgeräte unterstützt werden.
-Er bietet alle Funktionen die im vorhergehenden Kapitel beschrieben sind.
-Dazu zählen eine Suche, sowohl nach Adressen, als auch nach Ausleihstationen, eine Übersicht über die verfügbaren Fahrradmodelle und über die Stationen an denen Fahrräder ausgeliehen werden können.
+Er bietet alle Funktionen die im vorhergehenden Kapitel beschrieben sind, zusätzlich sind diese im Folgenden noch einmal aufgelistet.
+%Dazu zählen eine Suche, sowohl nach Adressen, als auch nach Ausleihstationen, eine Übersicht über die verfügbaren Fahrradmodelle und über die Stationen an denen Fahrräder ausgeliehen werden können.
 
 \begin{figure}[h]
         \centering
 	\includegraphics[height=80mm]{pics/bikesharing_search.png}
+	\caption{Suche nach Fahrrädern}
 \end{figure}
 
-\chapter{Zusatzaufgabe WS-Security}
+\begin{description}
+	\item[Suche:] Es kann nach Fahrrädern an bestimmten Adressen oder Stationen gesucht werden. Nach dem Absenden der Suche werden alle gefundenen Fahrräder aufgelistet und jeweils die Entfernung zum angegebenen Standort angezeigt.
+	\item[Stationen:] Alle Stationen werden zum einen in einer Liste, zum anderen auf einer Karte angezeigt. Beim Auswählen einer Station wird diese noch einmal im Detail angezeigt, inklusive dem Standort auf einer Karte und allen verfügbaren Fahrrädern.
+	\item[Modelle:] Alle Modelle werden in einer Liste dargestellt. Beim Auswählen eines Modells wird dieses noch einmal im Detail angezeigt, inklusive allen verfügbaren Fahrrädern.
+	\item[Profil:] Im Profil werden zum einen die Daten des Nutzern angezeigt, zum anderen alle getätigten Buchungen. Buchungen können hier auch storniert werden.
+	\item[Fahrrad:] Für jedes Fahrrad existiert eine Detailansicht, wo das Modell und der Standort auf einer Karte angezeigt werden. Zusätzlich lässt sich hier das Fahrrad buchen.
+\end{description}
 
-\section{OAuth2}
 
-Das Architekturkonzept von OAuth2 wird durch folgendes Schema verdeutlicht.
 
 \begin{figure}[h]
         \centering
-	\includegraphics[height=80mm]{pics/Architektur.png}
+	\includegraphics[height=180mm]{pics/bikesharing_stations.png}
+	\caption{Liste aller verfügbaren Stationen}
 \end{figure}
 
-\section{Implementierung}
+\chapter{Zusatzaufgabe Sicherheit}
+
+%\section{OAuth2}
+Wie in Abbildung \ref{oauth} dargestellt, besteht unser Webservice aus zwei Teilen. Neben der eigentlichen API, gibt es zusätzlich noch eine Komponente die für die Authentifizierung zuständig ist, den OAuth-Server. Dieser hat auch seine eigene Datenbank. Nachdem der Nutzer auf der Clientanwendung, in unserem Fall dem Webclient, auf eine Seite zugreifen möchte, die eine Authentifizierung erfordert, erfolgt eine Weiterleitung zum OAuth-Server. Dort muss der Nutzer sich dann mit seinen Zugangsdaten anmelden und bestätigen, dass die Clientanwendung auf die privaten Daten zugreifen darft. Daraufhin wird der Nutzer wieder zum Webclient weitergeleitet und dabei die Authenfication-Code übergeben, der vom OAuth-Server generiert wurde. Diesen Code verwendet die Clientanwendung zusammen mit ihren eigenen Zugangsdaten um beim OAuth-Server einen Access-Token anzufordern. Mit diesem Access-Token kann die Clientanwendung nun auf die privaten Daten des Nutzers zugreifen.
+
+Um zu verhindern das jemand unautorisiertes den Access-Token abgreift, wird für die komplette Kommunikation HTTPS verwendet. Zusätzlich erfolgen alle Abfragen an den Webservice direkt vom Server des Webclient aus, der Access-Token wird dort in der Session gespeicher. Dadurch ist die unsichere clientseitige Speicherung mit JavaScript nicht nötig.
+
+%Das Architekturkonzept von OAuth2 wird durch folgendes Schema verdeutlicht.
+
+\begin{figure}[h]
+        \centering
+	\includegraphics[height=70mm]{pics/Architektur.png}
+	\caption{Kommunikation zwischen, Webservice, Client und Nutzer}
+\end{figure}\label{oauth}
+
+%\section{Implementierung}
 
 \chapter{Fazit}
 
 Die Implementierung des Webclient ist nach Vorlage einer durchdachten API gut machbar.
 
-Das Slim-Framework war eine gute Wahl, da die Verwendung sehr einfach und fehlerfrei verlief.
-Die OAuth-Middleware hat leider nicht funktioniert, auch ist die Implementierung eines OAuth-Servers relativ kompliziert.
+Das Slim-Framework war eine gute Wahl, da die Verwendung sehr einfach und fehlerfrei verlief. Die Implementierung eines OAuth-Servers ist recht zeitaufwendig und umständlich, vor allem wenn man sich damit bisher noch nicht befasst hat. Leider hat auch die OAuth-Middleware für das Slim-Framework nicht funktioniert, sodass eigene Lösung gefunden werden musste, um die Authentifizierung auf dem Webservice zu kontrollieren.
 
 Der Aufwand ist, ja nach gewählter Aufgabe, recht hoch, insbesondere wenn man, wie in diesem Fall, Programmiersprachen wählt, die den Teammitgliedern gar nicht, oder nur rudimentär geläufig sind.
-Wir hatten uns ursprünglich für PHP entschieden, da wir eine neue Programmiersprache kennenlernen wollten.
+
+Wie am Anfang geplant, konnten wir unsere Anwendung nach der Entwicklung problemlos auf einem fast kostenlosem Webserver testen und sie ließ sich dort direkt ohne Probleme ausführen, es war keine besondere Einrichtung erforderlich. 
+
+%Wir hatten uns für PHP entschieden, da PHP den Vorteil bringt, dass es auf nahezu jedem beliebigen Webserver ausführbar ist und relativ wenig Leistung benötigt. Wir konnten unsere Anwendung nach der Entwicklung problemlos auf einem fast kostenlosem Webserver testen und sie ließ sich dort direkt ohne Probleme ausführen, es war keine besondere Einrichtung erforderlich. Außerdem hatten wir uns für PHP entschieden, da wir gerne mal eine neue, uns eher unbekannte Programmiersprache kennenlernen wollten.
 
 %\chapter{Quellen}
 
