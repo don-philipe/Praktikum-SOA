@@ -23,14 +23,16 @@ Eventuell muss in der php.ini die Zeile extension=pdo\_mysql.so einkommentiert w
 
 Alternativ können die Datenbanken auch über phpMyAdmin importiert werden.
 
+In der OAuth Datenbank muss in der Tabelle oauth\_clients die URL des Client angepasst werden.
+
 \section{Webservice und OAuth-Server}
 Vorraussetzung für den Webservice und den OAuth-Server ist ein Webserver auf dem PHP und PDO installiert sind. In den beiden Dateien config.php und config\_oauth.php sind die Zugangsdaten für die Datenbank hinterlegt, diese müssen entsprechend angepasst werden. Anschließend kann der Order api einfach auf den Server kopiert werden. 
 \section{Webclient}
 Für den Webclient ist ebenfalls ein Server mit installiertem PHP nötig. Zusätzlich muss in der script.js die Variable baseURL durch die URL des Webservice ersetzt werden. In der head.php muss dies ebenfalls über die Variable \$api\_url geschehen. Durch die Variable \$oauth\_url wird zusätzlich der Link zum Authentifizierungsserver gesetzt.
 
 \chapter{Webservice Endpoints}
+Folgend eine Auflistung der möglichen Endpoints die in der API implementiert sind und über den Webservice abgerufen werden können. Einzelne Ressourcen werden nicht gesondert aufgelistet, sind aber bei allen GET-Requests jeweils über die ID möglich. Die Antwort ist sonst identisch, nur das ein einzelnes Element anstatt einer Liste zurückgegeben wird.
 
-Folgend eine Auflistung der möglichen Abrufe die in der API implementiert sind und über den Webservice abgerufen werden können.
 Diese Auflistung der Endpoints soll anstatt einer WADL als Beschreibung dienen, da das genutzte Framework den Export nicht anbietet.
 
 \begin{tabularx}{\columnwidth}{|X|p{1.5cm}|X|p{1.5cm}|}
@@ -127,7 +129,7 @@ Er bietet alle Funktionen die im vorhergehenden Kapitel beschrieben sind, zusät
 
 \begin{figure}[h]
         \centering
-	\includegraphics[height=180mm]{pics/bikesharing_stations.png}
+	\includegraphics[height=160mm]{pics/bikesharing_stations.png}
 	\caption{Liste aller verfügbaren Stationen}
 \end{figure}
 
