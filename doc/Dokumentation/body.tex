@@ -1,6 +1,6 @@
 \chapter{Aufgabe}
 
-Die Aufgabe bestand in einer Implementierung eines Webservices in PHP mit dem Slim Framework.
+Die Aufgabe bestand in der Implementierung eines Webservices in PHP mithilfe des Slim Frameworks\cite{slim}.
 Als Zusatzaufgabe sollte das Thema WS-Security durch Authentifizierung mittels OAuth2 und Verschlüsselung mittels HTTPS gelöst werden.
 
 Der Webservice stellt die Vermietungsplattform für einen fiktiven Bikesharingdienst dar.
@@ -23,6 +23,8 @@ Eventuell muss in der php.ini die Zeile extension=pdo\_mysql.so einkommentiert w
 \section{Webservice und API}
 
 \chapter{Funktionen Webservice}
+
+Folgend eine Auflistung der möglichen Abrufe die in der API implementiert sind und über den Webservice abgerufen werden können.
 
 \begin{tabularx}{\columnwidth}{|X|p{1.5cm}|X|p{1.5cm}|}
 	\hline
@@ -54,6 +56,8 @@ Eventuell muss in der php.ini die Zeile extension=pdo\_mysql.so einkommentiert w
 	Accountinformationen & GET & /account & protected \\
 	\hline
 \end{tabularx}
+
+In den folgenden Abschnitten werden diese Methoden genauer erklärt.
 
 \section{GET Methoden}
 \subsection{stations}
@@ -111,4 +115,5 @@ Der Aufwand ist, ja nach gewählter Aufgabe, recht hoch, insbesondere wenn man, 
 Wir hatten uns ursprünglich für PHP entschieden, da wir eine neue Programmiersprache kennenlernen wollten.
 
 %\chapter{Quellen}
+\bibliography{literatur}
 
