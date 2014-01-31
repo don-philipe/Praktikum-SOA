@@ -19,7 +19,16 @@ GET /bookings
 \subsubsection{Response}\label{response}
 
 Liefert eine Liste aller getätigten Buchungen, jede Buchung besteht aus
-den folgenden Parametern: * bookingId - Die einzigartige Kennung der
+den folgenden Parametern: 
+\begin{itemize}
+\item id - Die einzigartige Kennung der Buchung
+\item bikeId - Die einzigartige Kennung des gebuchten Fahrrads
+\item date - Der Zeitpunkt der Buchung
+\item released - Der Zeitpunkt der Rückgabe des Fahrrads, falls schon zurückgegeben
+\item costs - Die entstandenen Kosten, falls schon zurückgegeben
+\end{itemize}
+
+* bookingId - Die einzigartige Kennung der
 Buchung * bikeId - Die einzigartige Kennung des gebuchten Fahrrads *
 date - Das Datum der Buchung
 
@@ -27,17 +36,17 @@ date - Das Datum der Buchung
 
 \begin{verbatim}
 {
-   "bookings" : [
-      {
          "bookingId" : 1682,
          "bikeId" : 105,
-         "date" : "2013-12-01 18:44:36"
-      },
-      {
+         "date" : "2013-12-01 18:44:36",
+         "released" : "2013-12-01 19:35:20",
+         "costs" : "200"
+},
+{
          "bookingId" : 1696,
          "bikeId" : 168,
-         "date" : "2013-12-01 18:45:24"
-      }
-   ]
+         "date" : "2013-12-01 18:45:24",
+         "released" : "2013-12-01 19:35:20",
+         "costs" : "250"
 }
 \end{verbatim}

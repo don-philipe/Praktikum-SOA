@@ -33,31 +33,30 @@ GET /models?location=Dresden&stationId=4
 \subsubsection{Response}\label{response}
 
 Liefert eine Liste von verfügbaren Fahrradmodellen, jedes Modell besteht
-aus den folgenden Parametern: * modelId - Die einzigartige Kennung des
-Fahrradmodells * name - Der Name des Fahrradmodells * description - Eine
-Beschreibung des Modells * pictureUrl - Die URL eines Fotos, welches das
-Fahrradmodell zeigt * bikes - Die Anzahl an zum Verleih zur Verfügung
-stehenden Fahrräder dieses Modells
+aus den folgenden Parametern: 
+\begin{itemize}
+\item id - Die einzigartige Kennung des Fahrradmodells
+\item name - Der Name des Fahrradmodells
+\item description - Die ausführliche Beschreibung des Modells
+\item picture - Die URL eines Fotos, welches das Fahrradmodell zeigt
+\item  bikes - Die Anzahl an zum Verleih zur Verfügung stehenden Fahrräder dieses Modells
+\end{itemize}
 
 \subsubsection{Response Examples}\label{response-examples}
 
 \begin{verbatim}
 {
-   "models" : [
-      {
-         "modelId" : 105,
+         "id" : 105,
          "name" : "Rennrad",
          "description" : "Bestens geeignet für das Fahren auf dem Asphalt.",
-         "pictureUrl" : "www.test.de/model105",
+         "picture" : "www.test.de/model105",
          "bikes" : 78
-      },
-      {
-         "modelId" : 68,
+},
+{
+         "id" : 68,
          "name" : "Kinderfahrrad",
          "description" : "Geeignet für Kinder zwischen 6 und 9 Jahren.",
-         "pictureUrl" : "www.test.de/model68",
+         "picture" : "www.test.de/model68",
          "bikes" : 8
-      }
-   ]
 }
 \end{verbatim}

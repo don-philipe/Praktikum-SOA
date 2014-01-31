@@ -23,6 +23,8 @@ Eventuell muss in der php.ini die Zeile extension=pdo\_mysql.so einkommentiert w
 
 Alternativ können die Datenbanken auch über phpMyAdmin importiert werden.
 
+In der OAuth Datenbank muss in der Tabelle oauth\_clients die URL des Client angepasst werden.
+
 \section{Webservice und OAuth-Server}
 Vorraussetzung für den Webservice und den OAuth-Server ist ein Webserver auf dem PHP und PDO installiert sind. In den beiden Dateien config.php und config\_oauth.php sind die Zugangsdaten für die Datenbank hinterlegt, diese müssen entsprechend angepasst werden. Anschließend kann der Order api einfach auf den Server kopiert werden. 
 \section{Webclient}
@@ -30,7 +32,9 @@ Für den Webclient ist ebenfalls ein Server mit installiertem PHP nötig. Zusät
 
 \chapter{Webservice Endpoints}
 
-Folgend eine Auflistung der möglichen Abrufe die in der API implementiert sind und über den Webservice abgerufen werden können.
+Folgend eine Auflistung der möglichen Endpoints die in der API implementiert sind und über den Webservice abgerufen werden können. Einzelne Ressourcen werden nicht gesondert aufgelistet, sind aber bei allen GET-Requests jeweils über die ID möglich. Die Antfort ist sonst identisch, nur das ein einzelnes Element anstatt einer Liste zurückgegeben wird.
+
+Die Auflistung soll die WADL ersetzen, da sich diese mit unserem verwendeten Framework nicht generieren lässt.
 
 \begin{tabularx}{\columnwidth}{|X|p{1.5cm}|X|p{1.5cm}|}
 	\hline

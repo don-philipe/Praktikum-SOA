@@ -38,36 +38,36 @@ GET /bikes?location=Dresden&radius=5000&modelId=105&stationId=4
 \subsubsection{Response}\label{response}
 
 Liefert eine Liste von verfügbaren Fahrrädern, jedes Fahrrad besteht aus
-den folgenden Parametern: * bikeId - Die einzigartige Kennung des
-Fahrrads * modelId - Die einzigartige Kennung des Fahrradmodells * price
-- Der Preis für 15 Minuten in Cent. * longitude - Längengrad * latitude
-- Breitengrad * stationId - Falls das Fahrrad in einer Verleihstation
-steht, ist dies die eindeutige Kennung der Station * distance - Die
-Entfernung zum gewählten Standort
+den folgenden Parametern: 
+\begin{itemize}
+\item id - Die einzigartige Kennung des
+\item modelId - Die einzigartige Kennung des Fahrradmodells
+\item price - Der Preis für 15 Minuten in Cent
+\item longitude - Längengrad
+\item latitude - Breitengrad
+\item stationId - Falls das Fahrrad in einer Verleihstation steht, ist dies die eindeutige Kennung der Station
+\item  distance - Die Entfernung zum gewählten Standort
+\end{itemize}
 
 \subsubsection{Response Examples}\label{response-examples}
 
 \begin{verbatim}
 {
-   "bikes" : [
-      {
-         "bikeId" : 46,
+         "id" : 46,
          "modelId" : 105,
          "price" : 100,
          "longitude" : -33.8670522,
          "latitude" : 151.1957362,
          "stationId" : 4,
          "distance": 2800
-      },
-      {
-         "bikeId" : 34,
+},
+{
+         "id" : 34,
          "modelId" : 105,
          "price" : 150,
          "longitude" : -33.8670522,
          "latitude" : 151.1957362,
          "stationId" : 4 ,
          "distance": 2800
-      }
-   ]
 }
 \end{verbatim}

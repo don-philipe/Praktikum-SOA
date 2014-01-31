@@ -19,14 +19,19 @@ GET /account
 \subsubsection{Response}\label{response}
 
 Liefert die Accountinformationen des Nutzers, ein Account besteht aus
-den folgenden Parametern: * accountId - Die einzigartige Kennung des
-Nutzers * email - Die E-Mail Adresse des Nutzers
+den folgenden Parametern: 
+\begin{itemize}
+\item id - Die einzigartige Kennung des Nutzers
+\item email - Die E-Mail Adresse des Nutzers
+\item login - Der Loginname des Nutzers
+\end{itemize}
 
 \subsubsection{Response Examples}\label{response-examples}
 
 \begin{verbatim}
 {
-   "accountId" : 1696,
-   "email" : "test@test.com"
+   	"id" : 1696,
+   	"email" : "test@test.com",
+   	"login" : "test"
 }
 \end{verbatim}
