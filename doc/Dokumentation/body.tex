@@ -23,6 +23,8 @@ Eventuell muss in der php.ini die Zeile extension=pdo\_mysql.so einkommentiert w
 
 Alternativ können die Datenbanken auch über phpMyAdmin importiert werden.
 
+In der OAuth Datenbank muss in der Tabelle oauth\_clients die URL des Client angepasst werden.
+
 \section{Webservice und OAuth-Server}
 Vorraussetzung für den Webservice und den OAuth-Server ist ein Webserver auf dem PHP und PDO installiert sind. In den beiden Dateien config.php und config\_oauth.php sind die Zugangsdaten für die Datenbank hinterlegt, diese müssen entsprechend angepasst werden. Anschließend kann der Order api einfach auf den Server kopiert werden. 
 \section{Webclient}
