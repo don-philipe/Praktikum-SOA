@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-$api_url = 'http://localhost/BikeSharing/src/api/';	
+$api_url = 'https://tobias90.circinus.uberspace.de/api/';	
+$oauth_url = 'https://tobias90.circinus.uberspace.de/api/authorize.php?response_type=code&client_id=testclient&state=xyz';
 	
 	
 $access_code = "";
@@ -49,7 +50,7 @@ function getAccessCode($code){
             'code'          => $code,
             'client_id'     => "testclient",
             'client_secret' => "testpass",
-            'redirect_uri'  => "http://localhost/BikeSharing/src/client/",
+            'redirect_uri'  => "http://tobias90.circinus.uberspace.de/client/",
 	);
 	
 	foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
@@ -119,42 +120,37 @@ function doPostRequest($url, $token, $params){
 	//execute post
 	$result = curl_exec($ch);
 	
+	$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 	//close connection
 	curl_close($ch);
-
+	
+	if($http_status == 404){
+		return NULL;
+	}
 	return $result;
 }
 
 function doDeleteRequest($url, $token, $params){
-	//$params['access_token'] = $token;
-	$params = array(
-            'access_token'  => $token,
-	);
-	
-	foreach($params as $key=>$value) { $params_string .= $key.'='.$value.'&'; }
-	rtrim($params_string, '&');
-	
 	//open connection
 	$ch = curl_init();
 	
 	//set the url, number of POST vars, POST data
 	curl_setopt($ch,CURLOPT_URL, $url);
 	curl_setopt($ch,CURLOPT_CUSTOMREQUEST, "DELETE");
-	curl_setopt($ch,CURLOPT_POST, count($params));
-	curl_setopt($ch,CURLOPT_POSTFIELDS, $params_string);
 	curl_setopt($ch,CURLOPT_HTTPHEADER, array(
-	    'Content-type: application/x-www-form-urlencoded'
+	    "Content-type: application/x-www-form-urlencoded",
+	    "Authorization: Bearer $token"
 	));
 	curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);  
 	
 	//execute post
 	$result = curl_exec($ch);
-	//print_r(curl_getinfo($ch));
 	
 	//close connection
 	curl_close($ch);
 
 	return $result;
+
 }
 
 ?>
@@ -164,11 +160,11 @@ function doDeleteRequest($url, $token, $params){
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<link href="css/style.css" type="text/css" rel="stylesheet">
-		<script language="javascript" type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+		<script language="javascript" type="text/javascript" src="js/lib/jquery-2.0.3.min.js"></script>
 		<!--<script language="javascript" type="text/javascript" src="js/lib/jquery-2.0.3.min.js"></script>-->
 		<script language="javascript" type="text/javascript" src="js/script.js"></script>
 		<!--<script language="javascript" type="text/javascript" src="js/lib/OpenLayers.mobile.js"></script>-->
-		<script language="javascript" type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
+		<script language="javascript" type="text/javascript" src="js/lib/OpenLayers-2.13.1/OpenLayers.js"></script>
 		
 		<title>BikeSharing</title>
 	</head>

@@ -21,8 +21,9 @@ $url = $GLOBALS["api_url"]."bookings/".$bookingId;
 		<h2>Buchung</h2>
 		<article class="container" id='booking'>
 			<?php
-				echo doDeleteRequest($url, $_SESSION['$access_code'], $params);
+				doDeleteRequest($url, $_SESSION['$access_code'], $params);
 			?>
+			Buchung erfolgreich storniert.
 		</article>
 		
 	</section>

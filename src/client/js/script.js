@@ -23,13 +23,66 @@ function showStation(id) { $.ajax({
 	        addMarker(station.longitude, station.latitude, station.name, true);
 	        
 	        //bikes
-	        showBikesForStation(id);
+	        showBikesForStation(id, '#station');
 	    },
 	    url: baseURL + 'api/stations/' + id
 	});
 }
 
-function showBikesForStation(id) {
+function showBikesForStation(id, div) {
+  	$.ajax({
+	    dataType: 'json',
+	    success: function(data) {
+	        //var bike = data[0];
+	        
+	        for(var i = 0; i < data.length; i++){
+		        var bike = data[i];
+		        
+		        var bikeDiv = $('<div>').attr("class", 'container bike');
+		        
+		         //bike id
+		        var bikeId = $('<p>').attr("class", 'modelId');//.append(bike.id);
+		        
+		        bikeId.bind('click', { id: bike.id}, function(event) {
+					var data = event.data;
+					window.location.href = "bike.php?bike=" + data.id;
+				});
+				
+				//model name
+				var xmlHttp = null;
+
+			    xmlHttp = new XMLHttpRequest();
+			    xmlHttp.open( "GET", baseURL + 'api/models/'+ bike.model, false );
+			    xmlHttp.send( null );
+			    
+			    var json = JSON.parse(xmlHttp.responseText);
+				bikeId.append(json.name);
+
+										         
+		        //booking
+		        var bookingDiv = $('<div>').attr("class", 'booking');
+		        var bookingIcon = $('<img>').attr("src", 'img/ic_booking.png');
+		        var bookingPrice = $('<p>').attr("class", 'price').append(bike.price/100 + ' € / 15min');
+		        bookingDiv.append(bookingIcon).append(bookingPrice);
+		        
+		        bookingDiv.bind('click', { id: bike.id}, function(event) {
+					var data = event.data;
+					window.location.href = baseURL + "client/doBooking.php?bikeid=" + data.id;
+				});
+		         
+		        bikeDiv.append(bookingDiv);
+		        bikeDiv.append(bikeId);
+		        $(div).append(bikeDiv);
+		        
+		        
+		    }
+	        
+	    },
+	    url: baseURL + 'api/bikes?place=Dresden&radius=100000000&stationId=' + id
+	});
+}
+
+function showBikesForModel(id, div) {
   	$.ajax({
 	    dataType: 'json',
 	    success: function(data) {
@@ -42,6 +95,11 @@ function showBikesForStation(id) {
 		        
 		         //bike id
 		        var bikeId = $('<p>').attr("class", 'modelId').append(bike.id);
+		        
+		        bikeId.bind('click', { id: bike.id}, function(event) {
+					var data = event.data;
+					window.location.href = "bike.php?bike=" + data.id;
+				});
 		         
 		        //booking
 		        var bookingDiv = $('<div>').attr("class", 'booking');
@@ -52,16 +110,15 @@ function showBikesForStation(id) {
 		        bookingDiv.bind('click', { id: bike.id}, function(event) {
 					var data = event.data;
 					window.location.href = baseURL + "client/doBooking.php?bikeid=" + data.id;
-					//doBooking(data.id);
 				});
 		         
 		        bikeDiv.append(bookingDiv);
 		        bikeDiv.append(bikeId);
-		        $('#station').append(bikeDiv);
+		        $(div).append(bikeDiv);
 		    }
 	        
 	    },
-	    url: baseURL + 'api/bikes?location=Dresden&radius=100000000&stationId=' + id
+	    url: baseURL + 'api/bikes?place=Dresden&radius=100000000&modelId=' + id
 	});
 }
 
@@ -97,7 +154,7 @@ function showStations() {
 						         
 		        $('#stations').append(stationDiv);
 		        
-			addMarker(station.longitude, station.latitude, station.name, false);
+				addMarker(station.longitude, station.latitude, station.name, false);
 	        }
 	    },
 	    url: baseURL + 'api/stations'
@@ -147,17 +204,64 @@ function showModel(id) {
 	    dataType: 'json',
 	    success: function(data) {
 	        var model = data;
+	        
 	        $('#sectionHeadline').text(model.name);
 	        
-	        //description
-	        var description = $('<p>').attr("class", 'description').append(model.description);
-	        $('#description').append(description);
-	        
-	        //picture
 	        var picture = $('<img>').attr("src", model.picture);
-	        $('#picture').append(picture);
+	        $('#description').append(model.description);
+	        $('#bikepicture').append(picture);
+	        
+	         showBikesForModel(id, '#model');
 	    },
 	    url: baseURL + 'api/models/' + id
+	});
+}
+
+function showBike(id) {
+	$.ajax({
+	    dataType: 'json',
+	    success: function(data) {
+	        var bike = data;
+	        
+	        $('#sectionHeadline').text('Fahrrad ' + bike.id);
+	        
+	        var bikeDiv = $('<div>').attr("class", 'container bike');
+	        
+	         //bike id
+	        var bikeId = $('<p>').attr("class", 'modelId');//.append("Fahrradmodell " + bike.id);
+	        
+	        //model name
+			var xmlHttp = null;
+
+		    xmlHttp = new XMLHttpRequest();
+		    xmlHttp.open( "GET", baseURL + 'api/models/'+ bike.model, false );
+		    xmlHttp.send( null );
+		    
+		    var json = JSON.parse(xmlHttp.responseText);
+			bikeId.append(json.name);
+	         
+	        //booking
+	        var bookingDiv = $('<div>').attr("class", 'booking');
+	        var bookingIcon = $('<img>').attr("src", 'img/ic_booking.png');
+		var price = bike.price/100;
+	        var bookingPrice = $('<p>').attr("class", 'price').append(price + ' € / 15min');
+	        bookingDiv.append(bookingIcon).append(bookingPrice);
+	        
+	        bookingDiv.bind('click', { id: bike.id}, function(event) {
+				var data = event.data;
+				window.location.href = baseURL + "client/doBooking.php?bikeid=" + data.id;
+			});
+	         
+	        bikeDiv.append(bookingDiv);
+
+	        bikeDiv.append(bikeId);
+	        $('#bikeInfo').append(bikeDiv);
+	        
+	        //map
+	        addMarker(bike.longitude, bike.latitude, json.name + " für " + price + ' € / 15min', true);
+
+	    },
+	    url: baseURL + 'api/bikes/' + id
 	});
 }
 
@@ -166,26 +270,54 @@ function showResults(postcode, place, street, housenumber, radius, stationId) {
 	    dataType: 'json',
 	    success: function(data) {
 	        for(var i in data){
+	        	var bike = data[i];
 		        
-		        var station = data[i];
+		        var bikeDiv = $('<div>').attr("class", 'container bike');
 		        
-		        var stationDiv = $('<div>').attr("class", 'bikes');
+		        //model name
+				var xmlHttp = null;
+	
+			    xmlHttp = new XMLHttpRequest();
+			    xmlHttp.open( "GET", baseURL + 'api/models/'+ bike.model, false );
+			    xmlHttp.send( null );
+			    
+			    var json = JSON.parse(xmlHttp.responseText);
+				//bikeId.append(json.name);
 		        
-		        var distance = $('<p>').attr("class", 'distance').append(station.distance + ' Meter');
-		        var price = $('<p>').attr("class", 'price').append(station.price + ' Cent');
-		         
-		        stationDiv.append(distance);
-		        stationDiv.append(price);
+		         //bike id
+		        var bikeText = '';
+		   if(stationId != '' && postcode == '' && place == '' && street == '' && housenumber == '')
+				bikeText = json.name;
+			else
+				bikeText = json.name + ' - ' + bike.distance + ' Meter'; 
+		        var bikeId = $('<p>').attr("class", 'modelId').append(bikeText);
 		        
-		        stationDiv.bind('click', { id: station.id}, function(event) {
+		        bikeId.bind('click', { id: bike.id}, function(event) {
 					var data = event.data;
-					alert( data.id );
+					window.location.href = "bike.php?bike=" + data.id;
+				});
+				
+				
+		         
+		        //booking
+		        var bookingDiv = $('<div>').attr("class", 'booking');
+		        var bookingIcon = $('<img>').attr("src", 'img/ic_booking.png');
+		        var bookingPrice = $('<p>').attr("class", 'price').append(bike.price/100 + ' € / 15min');
+		        bookingDiv.append(bookingIcon).append(bookingPrice);
+		        
+		        bookingDiv.bind('click', { id: bike.id}, function(event) {
+					var data = event.data;
+					window.location.href = baseURL + "client/doBooking.php?bikeid=" + data.id;
 				});
 		         
-		        $('#results').append(stationDiv);
+		        bikeDiv.append(bookingDiv);
+	
+		        bikeDiv.append(bikeId);
+		        $('#results').append(bikeDiv);
+
 	        }
 	    },
-	    url: baseURL + 'api/bikes?postcode=' + postcode + '&place=' + place + '&street' + street + '&housenumber' + housenumber + '&radius=' + radius + '&stationId' + stationId
+	    url: baseURL + 'api/bikes?postcode=' + postcode + '&place=' + place + '&street=' + street + '&housenumber=' + housenumber + '&radius=' + radius + '&stationId=' + stationId
 	});
 }
 

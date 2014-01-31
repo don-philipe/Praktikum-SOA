@@ -1,8 +1,13 @@
 <?php
+require_once 'config_oauth.php';
 
-$dsn      = 'mysql:dbname=bikesharingservice_oauth;host=localhost';
-$username = 'root';
-$password = '';
+
+$dsn      = "mysql:dbname=$dbname;host=$dbhost";
+$username = $dbuser;
+$password = $dbpass;
+
+//$dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);
+
 
 // error reporting (this is a demo, after all!)
 ini_set('display_errors',1);error_reporting(E_ALL);
@@ -13,7 +18,6 @@ OAuth2\Autoloader::register();
 
 // $dsn is the Data Source Name for your database, for exmaple "mysql:dbname=my_oauth2_db;host=localhost"
 $storage = new OAuth2\Storage\Pdo(array('dsn' => $dsn, 'username' => $username, 'password' => $password));
-
 // Pass a storage object or array of storage objects to the OAuth2 server class
 $server = new OAuth2\Server($storage);
 

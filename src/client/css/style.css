@@ -190,6 +190,10 @@ section:last-child{
 	cursor: pointer;
 }
 
+.bike:hover{
+	cursor: pointer;
+}
+
 .station p{
 	padding: 0;
 	margin: 0;
@@ -272,7 +276,7 @@ section:last-child{
 
 .bike .booking{
 	float: right;
-	width: 100px;
+	width: 150px;
 }
 
 .bike .booking:hover{
@@ -362,6 +366,31 @@ section:last-child{
 	padding: 0px 5px 0px 0px;
 	margin: 0;
 }
+
+/* model */
+#model #bikepicture, #model #description{
+	width: 359px;
+	height: 359px;
+	margin: 9px 0px;
+}
+
+#model #bikepicture{
+	display: inline-block;
+	margin-left: 9px;
+}
+
+
+#model #description{
+	float: left;
+	margin-right: 9px;
+}
+
+#model #bikepicture img{
+	width: 359px;
+	height: 359px;
+}
+
+/* bike */
 
 
 /* search */
@@ -476,6 +505,14 @@ section:last-child{
 #profile #personal{
 	float: left;
 	margin-right: 9px;
+}
+
+#profile #personal h4{
+	padding-bottom: 5px;
+}
+
+#profile #personal p{
+	padding: 5px 0px 5px 0px;
 }
 
 #profile #payment{

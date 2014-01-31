@@ -5,7 +5,7 @@ include_once('head.php')
 <?php
 include_once('header.php')
 ?>
-			
+
 	<section>
 	
 		<article id='station'>

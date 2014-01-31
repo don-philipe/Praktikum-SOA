@@ -27,7 +27,7 @@ $app->get('/bikes', function () use ($app) {
 	$radius = $app->request()->get('radius');
 	$stationId = $app->request()->get('stationId');
 	if($radius == '') $radius = 2500;
-	if($stationId != '')
+	if($stationId != '' && $postcode == '' && $place == '' && $street == '' && $housenumber == '')
 	{
 		$query = "SELECT id, model, price, longitude, latitude, station FROM bikes WHERE station = $stationId";
 	}
@@ -132,7 +132,7 @@ $app->get('/stations/:stationId', function ($id) use ($app) {
 		$bookingQuery = "UPDATE bookings SET released = now(), costs = $costs WHERE id = $id";
 		updateDb($bookingQuery, $app);
 	});
-
+	
 
 /* #################################################################
  * The following apis are private and require a valid access token.
@@ -145,6 +145,7 @@ if (!$server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
     if($status == 401 && $token != ""){
 	   	die;
     }
+   
 }else{
 	$token = $server->getAccessTokenData(OAuth2\Request::createFromGlobals());
 	$userId = $token['user_id'];
@@ -197,11 +198,14 @@ if (!$server->verifyResourceRequest(OAuth2\Request::createFromGlobals())) {
 	
 	
 	$app->delete('/bookings/:bookingId', function($id) use($app, $userId) {
-		echo("delete");
-	/*
+		$bikeIdQuery = "SELECT bike FROM bookings WHERE id = $id";
+		$bikeId = getObjectFromDb($bikeIdQuery, $app)->bike; 
+		
+		$bikeQuery = "UPDATE bikes SET isUsed = 0 WHERE id = $bikeId";
+		updateDb($bikeQuery, $app);
+	
 		$query = "DELETE FROM bookings WHERE id = $id";
 		deleteRowInDb($query, $app);
-		*/
 	});	
 	
 }

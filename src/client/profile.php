@@ -19,8 +19,12 @@ $bookingsJson = doRequest($bookingUrl, $_SESSION['$access_code'], "");
 				<h4>Persönliche Informationen:</h4>
 				<?php
 					$url = $GLOBALS["api_url"]."account";
-					echo doRequest($url, $_SESSION['$access_code'], "");
+					$request =  doRequest($url, $_SESSION['$access_code'], "");
+					$account = json_decode($request);
 				?>
+				<p>Accountnr.: <?php echo($account->id); ?></p>
+				<p>E-Mail.: <?php echo($account->email); ?></p>
+				<p>Login.: <?php echo($account->login); ?></p>
 			</div>
 			
 			<div class="container" id="payment">
@@ -41,7 +45,7 @@ $bookingsJson = doRequest($bookingUrl, $_SESSION['$access_code'], "");
 					<?php
 					
 					$bookings = json_decode($bookingsJson, true);
-					for($count = 1; $count < count($bookings); $count++){
+					for($count = 0; $count < count($bookings); $count++){
 						$booking = $bookings[$count];
 						
 						$costs = $booking[costs];
